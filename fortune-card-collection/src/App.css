@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -9,7 +9,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 10s linear;
   }
 }
 
@@ -35,4 +35,18 @@
   to {
     transform: rotate(360deg);
   }
+} */
+ .App {
+   display: flex;
+   flex-direction: column;
+   height: 100vh;
+   /* 화면 전체 */
+ }
+
+.App-layout {
+  flex: 1;
+  /* 남는 공간 모두 차지 */
+  overflow-y: auto;
+  /* 레이아웃 내부만 스크롤 */
+  padding: 20px;
 }
