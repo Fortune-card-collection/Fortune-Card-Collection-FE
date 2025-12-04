@@ -2,16 +2,10 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <div
-      style={{
-        height: "15px",
-        display: "flex",
-        alignItems: "center",
-        fontSize: "20px",
-        fontFamily: "system-ui",
-      }}
-    >
-      제공:
-    </div>
+    <footer className="bg-white border-t border-[#eee] py-10 mt-12">
+      <div className="max-w-[1100px] mx-auto px-4 text-center text-[#888]">
+        <p className="text-xs">Copyright © Fortune Collection. All rights reserved.</p>
+         </div>
+    </footer>
   );
 }

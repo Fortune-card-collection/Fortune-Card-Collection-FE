@@ -1,28 +1,20 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import "./Header.css";
 
-export default function Header({ activeMenu, setActiveMenu }) {
+export default function Header({ activeTab, setActiveTab }) {
 
   return (
-    <header className="header">
-      <div className="header-inner">
-        <div
-          className={`menu-item ${activeMenu === "Star" ? "active" : ""}`}
-          onClick={() => setActiveMenu("Star")}
-        >
-          별자리
-        </div>
-        <div
-          className={`menu-item ${activeMenu === "Birth" ? "active" : ""}`}
-          onClick={() => setActiveMenu("Birth")}
-        >
-          생년월일
-        </div>
-        <div
-          className={`menu-item ${activeMenu === "Quote" ? "active" : ""}`}
-          onClick={() => setActiveMenu("Quote")}
-        >
-          오늘의 명언
+    <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
+      <div className="max-w-[1100px] mx-auto px-4 h-16 flex items-center justify-between">
+        <div className="flex items-center gap-8">
+          {/* <h1 className="text-2xl font-bold tracking-tight text-[#333] cursor-pointer flex items-center gap-1">
+            <span className="text-[#3da8f5]">운세</span>컬렉션
+          </h1> */}
+          <nav className="hidden md:flex gap-1">
+            <button onClick={() => setActiveTab('star')} className={`h-16 px-4 text-[15px] font-bold flex items-center transition-colors ${activeTab === 'star' ? 'text-[#3da8f5] border-b-2 border-[#3da8f5] font-extrabold' : 'text-[#444] hover:text-[#3da8f5]'}`}>별자리</button>
+            <button onClick={() => setActiveTab('birth')} className={`h-16 px-4 text-[15px] font-bold flex items-center transition-colors ${activeTab === 'birth' ? 'text-[#3da8f5] border-b-2 border-[#3da8f5] font-extrabold' : 'text-[#444] hover:text-[#3da8f5]'}`}>생년월일</button>
+            <button onClick={() => setActiveTab('quote')} className={`h-16 px-4 text-[15px] font-bold flex items-center transition-colors ${activeTab === 'quote' ? 'text-[#3da8f5] border-b-2 border-[#3da8f5] font-extrabold' : 'text-[#444] hover:text-[#3da8f5]'}`}>오늘의 명언</button>
+          </nav>
         </div>
       </div>
     </header>
