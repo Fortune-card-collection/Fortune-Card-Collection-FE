@@ -5,8 +5,8 @@ import Footer from "./components/Footer";
 import StarScreen from "./components/Layout/Star/ChooseStar";
 import BirthScreen from "./components/Layout/Birth/Input";
 import QuoteScreen from "./components/Layout/Quote/ChooseCard";
-import ZodiacModal from './components/Layout/Star/ZodiacModal';
-
+import StarCard from "./components/Layout/Star/StarCard";
+import ZodiacModal from "./components/Layout/Star/ZodiacModal";
 // function App() {
 
 //   const [activeMenu, setActiveMenu] = useState("Star");
@@ -36,6 +36,7 @@ import ChooseStar from "./components/Layout/Star/ChooseStar";
 const App = () => {
   const [activeTab, setActiveTab] = useState('star');
   const [selectedZodiacModal, setSelectedZodiacModal] = useState(null);
+  const [selectedZodiac, setSelectedZodiac] = useState(null);
 
   return (
     <div className="min-h-screen bg-[#f7f7f7] font-sans text-[#333]">
@@ -47,7 +48,7 @@ const App = () => {
           <div className="rounded-sm min-h-[700px] flex flex-col overflow-hidden">
             <div className="bg-white px-8 pt-8 pb-4 border-b border-[#f0f0f0] shadow-sm">
                <h2 className="text-2xl font-bold text-[#1e1e1e] flex items-center gap-2">
-                 {activeTab === 'star' && <><Star className="w-6 h-6 text-[#3da8f5] fill-current"/> 오늘의 별자리 운세</>}
+                 {activeTab === 'star' && <><Star className="w-6 h-6 text-yellow-400 fill-current"/> 오늘의 별자리 운세</>}
                  {activeTab === 'birth' && <><Calendar className="w-6 h-6 text-[#3da8f5]"/> 생년월일 운세</>}
                  {activeTab === 'quote' && <><MessageCircle className="w-6 h-6 text-[#3da8f5]"/> 오늘의 명언</>}
                </h2>
@@ -58,8 +59,23 @@ const App = () => {
                </p>
             </div>
             
-            <div className="flex-1 flex items-center justify-center p-8 overflow-hidden">
-              {activeTab === 'star' && <ChooseStar onSelect={setSelectedZodiacModal} />}
+            <div className="flex-1 flex items-center justify-center overflow-hidden">
+              {activeTab === "star" && (
+                <>
+                  {!selectedZodiac && (
+                    <ChooseStar
+                      onSelect={(zodiac) => setSelectedZodiac(zodiac)}
+                    />
+                  )}
+
+                  {selectedZodiac && (
+                    <StarCard
+                      selectedZodiac={selectedZodiac}
+                      onSelect={(zodiac) => setSelectedZodiac(zodiac)}
+                    />
+                  )}
+                </>
+              )}
               {activeTab === 'birth' && <BirthScreen />}
               {activeTab === 'quote' && <QuoteScreen />}
             </div>
@@ -69,6 +85,7 @@ const App = () => {
       </main>
 
       <ZodiacModal zodiac={selectedZodiacModal} onClose={() => setSelectedZodiacModal(null)} />
+      
     </div>
   );
 };

@@ -4,7 +4,7 @@ import "./Header.css";
 export default function Header({ activeTab, setActiveTab }) {
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
+    <header className="bg-white border-b border-gray-200 z-40">
       <div className="max-w-[1100px] mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-8">
           {/* <h1 className="text-2xl font-bold tracking-tight text-[#333] cursor-pointer flex items-center gap-1">

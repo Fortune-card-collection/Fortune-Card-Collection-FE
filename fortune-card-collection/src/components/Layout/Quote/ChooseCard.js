@@ -25,12 +25,12 @@ const ChooseCard = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto py-4">
-      <div className="text-center mb-6">
+    <div className="w-full max-w-4xl mx-auto max-w-[1100px] mx-auto">
+      {/* <div className="text-center mb-6">
          <Quote className="w-10 h-10 text-[#1e3a8a] mx-auto mb-2 fill-current opacity-20" />
          <h3 className="text-xl font-bold text-[#333] mb-1 font-serif">오늘의 지혜를 구하세요</h3>
          <p className="text-sm text-[#888]">마음이 끌리는 카드를 선택하면, 당신을 위한 조언이 나타납니다.</p>
-      </div>
+      </div> */}
 
       <div className="relative w-full bg-[#1a1a2e] rounded-3xl p-12 overflow-hidden shadow-inner border-[6px] border-[#2d2d44]">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/felt.png')] opacity-30"></div>
