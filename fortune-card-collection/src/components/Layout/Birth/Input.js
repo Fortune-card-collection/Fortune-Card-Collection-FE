@@ -4,6 +4,7 @@ import spring from "../../../assets/images/봄카드.svg";
 import summer from "../../../assets/images/여름카드.svg";
 import autumn from "../../../assets/images/가을카드.svg";
 import winter from "../../../assets/images/겨울카드.svg";
+import BirthCard from "./BirthCard";
 
 //생년월일 입력 폼
 const Input = () => {
@@ -16,7 +17,8 @@ const Input = () => {
   const [month, setMonth] = useState(1);
   const [day, setDay] = useState(1);
 
-  const years = Array.from({ length: 50 }, (_, i) => 1980 + i);
+  const nowYear = new Date().getFullYear();
+  const years = Array.from({ length: nowYear - 1930 + 2 }, (_, i) => 1930 + i);
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
 
@@ -26,7 +28,7 @@ const Input = () => {
   const [woman, setWoman] = useState(true);
   const [man, setMan] = useState(false);
 
-  const [cardimg, setCardImg] = useState({});
+  const [cardimg, setCardImg] = useState();
 
   const [error, setError] = useState("");
 
@@ -47,19 +49,29 @@ const Input = () => {
   }, []);
 
   function season(a) {
-    const selectMonth = parseInt(a.slice(4, 6));
-    if (isNaN(month) || month < 1 || month > 12) {
-      setError("생년월일을 올바르게 입력해주세요!");
+    if (a.length < 6) {
+      setError("생년월일을 입력해주세요");
       return false;
     }
+
+    const selectMonth = parseInt(a.slice(4, 6));
+    if (selectMonth < 1 || selectMonth > 12 || parseInt(a.slice(0, 4)) > nowYear || parseInt(a.slice(6, 8) > 31)) {
+      setError("생년월일을 올바르게 입력해주세요");
+      return false;
+    }
+
     if(selectMonth >= 3 && selectMonth <=5 ) {
-      setCardImg({spring});
+      setError(null);
+      setCardImg(spring);
     } else if(selectMonth <= 8) {
-      setCardImg({summer});
+      setError(null);
+      setCardImg(summer);
     } else if(selectMonth <= 11) {
-      setCardImg({autumn});
+      setError(null);
+      setCardImg(autumn);
     } else if(selectMonth === 12 || selectMonth === 1 || selectMonth === 2) {
-      setCardImg({winter});
+      setError(null);
+      setCardImg(winter);
     } else {
       setError("생년월일을 올바르게 입력해주세요!");
       return false;
@@ -69,21 +81,11 @@ const Input = () => {
 
   if (step === 'result') {
     return (
-      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <div className="flex justify-center items-center">
-          <div className="relative  w-[309px] h-[500px] flex justify-center items-center">
-            {/* 배경 이미지 */}
-            <img
-              src={cardimg}
-              alt="별 카드 이미지"
-              className="absolute inset-0 w-full h-full object-cover shadow-lg"
-            />
-          </div>
-        </div>
-        <button onClick={() => setStep('input')} className="px-6 py-2 bg-gray-100 text-gray-600 rounded hover:bg-gray-200 font-medium text-sm">
-          다시 입력하기
-        </button>
-      </div>
+      <BirthCard
+        cardimg={cardimg}
+        onBack={() => setStep('input')}
+        Birth={birth}
+      />
     );
   }
 
@@ -91,27 +93,27 @@ const Input = () => {
     <div className="max-w-[1100px] mx-auto py-4 px-4">
       <div className="w-full mx-auto space-y-6">
         <div className="w-full max-w-[600px] min-w-[300px]">
-          {error && (
-            <p className="text-red-500 text-sm mt-1">
-              {error}
-            </p>
-          )}
           <label className="block text-sm font-bold text-[#333] mb-2">생년월일</label>
-          <div className="relative">
+          <div className="relative mb-[-10px]">
             <input 
               type="text"
-              placeholder="예: 19950101"
+              placeholder="예: 20010101"
               className="w-full h-12 pl-4 border border-[#ddd] rounded focus:border-[#3da8f5] focus:outline-none"
               value={birth}
               onChange={(e) => {
                 const onlyNums = e.target.value.replace(/[^0-9]/g, "");
-                setBirth(onlyNums);
+                setBirth(onlyNums.slice(0, 8));
               }}
             />
             <Calendar 
               className="absolute right-4 top-3.5 w-5 h-5 text-[#999]"
               onClick={() => setOpen(!open)}
             />
+            {error ? (
+              <p className="text-red-500 text-sm mt-[2px] h-4">{error}</p>
+            ) : (
+              <p className="text-sm mt-1 h-4">&nbsp;</p>
+            )}
           </div>
         </div>
 

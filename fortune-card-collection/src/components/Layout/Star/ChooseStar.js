@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Menu, Star, MessageCircle, Info, X, ChevronRight, Share2, RefreshCw, Calendar, Clock, Check } from 'lucide-react';
-
+import StarCard from './StarCard';
 import Star1 from "../../../assets/images/물병자리.svg";
 import Star2 from "../../../assets/images/물고기자리.svg";
 import Star3 from "../../../assets/images/양자리.svg";
@@ -29,7 +29,7 @@ const ZODIACS = [
   { id: 'capricorn', name: '염소자리', date: '12.25~01.19', icon: '♑', luck: 78, image: Star12 },
 ];
 
-const ChooseStar = ({ onSelect }) => {
+const ChooseStar = () => {
   const [selectedZodiac, setSelectedZodiac] = useState(null);
   const [hoveredZodiac, setHoveredZodiac] = useState(null);
   const radius = 220; 
@@ -38,6 +38,16 @@ const ChooseStar = ({ onSelect }) => {
   const onSelectStar = (zodiac) => {
     setSelectedZodiac(zodiac); // 선택 상태 변경
   };
+
+  if (selectedZodiac) {
+    return (
+      <StarCard 
+        selectedZodiac={selectedZodiac}
+        onBack={() => setSelectedZodiac(null)} 
+        onSelect={onSelectStar}
+      />
+    );
+  }
 
   return (
     <div className={`relative w-[${containerSize}px] h-[${containerSize}px] mx-auto my-6 flex items-center justify-center select-none animate-in fade-in duration-1000`}>
@@ -98,7 +108,7 @@ const ChooseStar = ({ onSelect }) => {
         return (
           <button
             key={zodiac.id}
-            onClick={() => { onSelect(zodiac); onSelectStar(zodiac);}}
+            onClick={() => onSelectStar(zodiac)}
             onMouseEnter={() => setHoveredZodiac(zodiac)}
             onMouseLeave={() => setHoveredZodiac(null)}
             className="absolute w-[110px] h-[110px] rounded-full

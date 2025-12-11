@@ -62,7 +62,7 @@ const getFormattedDate = (period) => {
 };
 
 
-export default function StarCard({ selectedZodiac, onSelect}) {
+export default function StarCard({ selectedZodiac, onSelect }) {
     const periods = ["오늘", "내일", "이달", "올해"];
     const [selectedPeriod, setSelectedPeriod] = useState("오늘");
 
@@ -76,7 +76,7 @@ export default function StarCard({ selectedZodiac, onSelect}) {
                 <StarSelectHeader
                     zodiacs={ZODIACS}
                     selectedZodiac={selectedZodiac}
-                    onSelect={onSelect}
+                    onSelect={(zodiac) => onSelect(zodiac)}
                 />
 
                 {/* 기간 선택 */}

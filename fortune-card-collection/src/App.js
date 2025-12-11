@@ -6,7 +6,6 @@ import StarScreen from "./components/Layout/Star/ChooseStar";
 import BirthScreen from "./components/Layout/Birth/Input";
 import QuoteScreen from "./components/Layout/Quote/ChooseCard";
 import StarCard from "./components/Layout/Star/StarCard";
-import ZodiacModal from "./components/Layout/Star/ZodiacModal";
 // function App() {
 
 //   const [activeMenu, setActiveMenu] = useState("Star");
@@ -60,22 +59,7 @@ const App = () => {
             </div>
             
             <div className="flex-1 flex items-center justify-center overflow-hidden">
-              {activeTab === "star" && (
-                <>
-                  {!selectedZodiac && (
-                    <ChooseStar
-                      onSelect={(zodiac) => setSelectedZodiac(zodiac)}
-                    />
-                  )}
-
-                  {selectedZodiac && (
-                    <StarCard
-                      selectedZodiac={selectedZodiac}
-                      onSelect={(zodiac) => setSelectedZodiac(zodiac)}
-                    />
-                  )}
-                </>
-              )}
+              {activeTab === 'star' && <ChooseStar />}
               {activeTab === 'birth' && <BirthScreen />}
               {activeTab === 'quote' && <QuoteScreen />}
             </div>
@@ -83,9 +67,6 @@ const App = () => {
         </section>
         <Footer />
       </main>
-
-      <ZodiacModal zodiac={selectedZodiacModal} onClose={() => setSelectedZodiacModal(null)} />
-      
     </div>
   );
 };
