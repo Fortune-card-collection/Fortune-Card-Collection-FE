@@ -3,6 +3,7 @@ import Quote from "../../../assets/images/명언카드.svg";
 
 export default function QuoteCard({ }) {
 
+    
     return (
         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mt-9">
             <div className="flex justify-center items-center">
