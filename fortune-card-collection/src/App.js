@@ -5,7 +5,9 @@ import Footer from "./components/Footer";
 import StarScreen from "./components/Layout/Star/ChooseStar";
 import BirthScreen from "./components/Layout/Birth/Input";
 import QuoteScreen from "./components/Layout/Quote/ChooseCard";
-import StarCard from "./components/Layout/Star/StarCard";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LoginScreen from "./components/Login/Login";
+import KakaoCallback from "./components/Login/KakaoCallback";
 // function App() {
 
 //   const [activeMenu, setActiveMenu] = useState("Star");
@@ -33,9 +35,19 @@ import { Search, Menu, Star, MessageCircle, Calendar, } from 'lucide-react';
 import ChooseStar from "./components/Layout/Star/ChooseStar";
 
 const App = () => {
+  const [login, setLogin] = useState('notLogin');
   const [activeTab, setActiveTab] = useState('star');
-  const [selectedZodiacModal, setSelectedZodiacModal] = useState(null);
-  const [selectedZodiac, setSelectedZodiac] = useState(null);
+
+  if (login === 'notLogin') {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LoginScreen />} />
+          <Route path="/auth/kakao/login" element={<KakaoCallback setLogin={setLogin}/>} />
+        </Routes>
+      </BrowserRouter>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#f7f7f7] font-sans text-[#333]">
@@ -53,13 +65,13 @@ const App = () => {
                </h2>
                <p className="text-sm text-[#888] mt-2">
                  {activeTab === 'star' && "원하는 별자리를 선택하여 오늘의 행운을 확인하세요."}
-                 {activeTab === 'birth' && "생년월일을 입력하여 사주를 분석합니다."}
+                 {activeTab === 'birth' && "생년월일을 입력하여 사주를 분석합니다. (하루에 1번만 검색 가능합니다)"}
                  {activeTab === 'quote' && "마음을 비우고 카드를 선택하세요."}
                </p>
             </div>
             
             <div className="flex-1 flex items-center justify-center overflow-hidden">
-              {activeTab === 'star' && <ChooseStar />}
+              {activeTab === 'star' && <StarScreen />}
               {activeTab === 'birth' && <BirthScreen />}
               {activeTab === 'quote' && <QuoteScreen />}
             </div>

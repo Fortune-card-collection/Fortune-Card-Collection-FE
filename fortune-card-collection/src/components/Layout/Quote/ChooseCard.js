@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import QuoteCard from './QuoteCard';
-import { X, Quote,  } from 'lucide-react';
+import axios from 'axios';
 
 const QUOTES = [
   { text: "가장 큰 위험은 위험 없는 삶이다.", author: "스티븐 코비" },
@@ -19,6 +19,7 @@ const QUOTES = [
 
 // 3. 오늘의 명언 카드 선택
 const ChooseCard = () => {
+  const [quoteList, setQuoteList] = useState([]);
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -31,6 +32,30 @@ const ChooseCard = () => {
   const [removeSize, setRemoveSize] = useState({ width: 160, height: 250 });
   const [borderWidth, setBorderWidth] = useState(2);
   const [bgOpacity, setBgOpacity] = useState(1);
+  const [cornerOpacity, setCornerOpacity] = useState(0.3);
+  const [starOpacity, setStarOpacity] = useState(0.7);
+
+  // const RandomQuote = async () => {
+  //   try {
+  //     const response = await axios.get(`http://localhost:8080/quotes/random`,{withCredentials: true});
+  //     console.log(response);
+  //   } catch(error) {
+  //     if (error.response) {
+  //       // ❌ 서버 에러 응답
+  //       console.error(`❗ 오류 (${error.response.status}):`, error.response.data);
+  //     } else if (error.request) {
+  //       // ❗ 네트워크 에러
+  //       console.error('🌐 서버 응답 없음:', error.message);
+  //     } else {
+  //       // ❗ 기타 에러
+  //       console.error('⚠️ 요청 실패:', error.message);
+  //     }
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   RandomQuote();
+  // },[]);
 
   useEffect(() => {
     if (selectedCard !== null) {
@@ -73,6 +98,9 @@ const ChooseCard = () => {
 
         console.log(`rgba(${startColor.r}, ${startColor.g}, ${startColor.b}, ${inv})`);
 
+        setCornerOpacity(0.3 * inv);
+        setStarOpacity(0.7 * inv);
+
         // 선택된 카드 커짐
         growW += growStepW;
         growH += growStepH;
@@ -99,15 +127,9 @@ const ChooseCard = () => {
       setMoveWhite('#1a1a2e');
       setSize({ width: 180, height: 270 });
       setBorderWidth(2);
+      setCornerOpacity(0.3);
     }
   }, [selectedCard]);
-
-  const lerpColor = (color1, color2, t) => {
-    const r = Math.round(color1.r + (color2.r - color1.r) * t);
-    const g = Math.round(color1.g + (color2.g - color1.g) * t);
-    const b = Math.round(color1.b + (color2.b - color1.b) * t);
-    return `rgb(${r}, ${g}, ${b})`;
-  };
 
   const hexToRgb = (hex) => {
     const bigint = parseInt(hex.replace("#", ""), 16);
@@ -148,7 +170,7 @@ const ChooseCard = () => {
     <div className="w-full max-w-4xl mx-auto max-w-[1100px] mx-auto">
 
       <div 
-        className="relative w-full rounded-3xl p-12 overflow-hidden shadow-inner border-[6px] border-white"
+        className="relative w-full rounded-3xl p-12 overflow-hidden shadow-inner "
         style={{ backgroundColor: moveWhite }}
       >
         <div
@@ -161,10 +183,20 @@ const ChooseCard = () => {
           className="absolute inset-0 bg-gradient-to-br from-[#ffffff] to-transparent"
           style={{ opacity: 0.05 * bgOpacity }}
         ></div>
-        <div className="absolute top-4 left-4 w-16 h-16 border-t-2 border-l-2 border-[#d4af37] opacity-30 rounded-tl-xl"></div>
-        <div className="absolute top-4 right-4 w-16 h-16 border-t-2 border-r-2 border-[#d4af37] opacity-30 rounded-tr-xl"></div>
-        <div className="absolute bottom-4 left-4 w-16 h-16 border-b-2 border-l-2 border-[#d4af37] opacity-30 rounded-bl-xl"></div>
-        <div className="absolute bottom-4 right-4 w-16 h-16 border-b-2 border-r-2 border-[#d4af37] opacity-30 rounded-br-xl"></div>
+        <div 
+          className="absolute top-4 left-4 w-16 h-16 border-t-2 border-l-2 border-[#d4af37] rounded-tl-xl"
+          style={{ opacity: cornerOpacity }}  
+        ></div>
+        <div 
+          className="absolute top-4 right-4 w-16 h-16 border-t-2 border-r-2 border-[#d4af37] rounded-tr-xl"
+          style={{ opacity: cornerOpacity }}
+        ></div>
+        <div className="absolute bottom-4 left-4 w-16 h-16 border-b-2 border-l-2 border-[#d4af37] rounded-bl-xl"
+          style={{ opacity: cornerOpacity }}
+        ></div>
+        <div className="absolute bottom-4 right-4 w-16 h-16 border-b-2 border-r-2 border-[#d4af37] rounded-br-xl"
+          style={{ opacity: cornerOpacity }}
+        ></div>
 
         <div className="flex justify-center gap-6 md:gap-12 relative z-10">
           <div 
@@ -174,7 +206,7 @@ const ChooseCard = () => {
                 ? {
                     width: size.width,
                     height: size.height,
-                    transform: `translate(50px, 14px)`,
+                    transform: `translate(48px, 6px)`,
                   }
                 : {
                   width: removeSize.width,
@@ -196,7 +228,16 @@ const ChooseCard = () => {
             >
               <div className="absolute inset-2 border border-[#94a3b8] opacity-30 rounded-lg"></div>
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
-              <div className="text-4xl text-[#d4af37] opacity-70 animate-pulse">✦</div>
+              <div 
+                className="text-4xl text-[#d4af37] animate-pulse"
+                style={
+                  selectedCard === 0
+                    ? {}
+                    : {
+                      opacity: starOpacity,
+                    }
+                }
+              >✦</div>
             </div>
           </div>
 
@@ -207,6 +248,7 @@ const ChooseCard = () => {
                 ? {
                     width: size.width,
                     height: size.height,
+                    transform: `translate(0px, 6px)`,
                   }
                 : {
                   width: removeSize.width,
@@ -228,7 +270,16 @@ const ChooseCard = () => {
             >
               <div className="absolute inset-2 border border-[#94a3b8] opacity-30 rounded-lg"></div>
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
-              <div className="text-4xl text-[#d4af37] opacity-70 animate-pulse">✦</div>
+              <div 
+                className="text-4xl text-[#d4af37] animate-pulse"
+                style={
+                  selectedCard === 1
+                    ? {}
+                    : {
+                      opacity: starOpacity,
+                    }
+                }
+              >✦</div>
             </div>
           </div>
 
@@ -239,7 +290,7 @@ const ChooseCard = () => {
                 ? {
                     width: size.width,
                     height: size.height,
-                    transform: `translate(-50px, 13px)`,
+                    transform: `translate(-48px, 6px)`,
                   }
                 : {
                   width: removeSize.width,
@@ -261,7 +312,16 @@ const ChooseCard = () => {
             >
               <div className="absolute inset-2 border border-[#94a3b8] opacity-30 rounded-lg"></div>
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
-              <div className="text-4xl text-[#d4af37] opacity-70 animate-pulse">✦</div>
+              <div 
+                className="text-4xl text-[#d4af37] opacity-70 animate-pulse"
+                style={
+                  selectedCard === 2
+                    ? {}
+                    : {
+                      opacity: starOpacity,
+                    }
+                }
+              >✦</div>
             </div>
           </div>
         </div>

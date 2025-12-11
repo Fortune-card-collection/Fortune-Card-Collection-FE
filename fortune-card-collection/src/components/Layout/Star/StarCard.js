@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
 import StarSelectHeader from "./StarSelectHeader";
 import StarCard1 from "../../../assets/images/물고기자리카드.svg";
 import StarCard2 from "../../../assets/images/물고기자리카드.svg";
@@ -35,14 +36,11 @@ const getFormattedDate = (period) => {
   const month = today.getMonth() + 1;
   const date = today.getDate();
 
-  if (period === "오늘") {
-    return `${year}년 ${month}월 ${date}일`;
-  }
+  if (period === "오늘") return `${year}년 ${month}월 ${date}일`;
 
   if (period === "내일") {
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
-
     const y = tomorrow.getFullYear();
     const m = tomorrow.getMonth() + 1;
     const d = tomorrow.getDate();
@@ -50,13 +48,9 @@ const getFormattedDate = (period) => {
     return `${y}년 ${m}월 ${d}일`;
   }
 
-  if (period === "이달") {
-    return `${year}년 ${month}월`;
-  }
+  if (period === "이달") return `${year}년 ${month}월`;
 
-  if (period === "올해") {
-    return `${year}년`;
-  }
+  if (period === "올해") return `${year}년`;
 
   return "";
 };
@@ -65,9 +59,44 @@ const getFormattedDate = (period) => {
 export default function StarCard({ selectedZodiac, onSelect }) {
     const periods = ["오늘", "내일", "이달", "올해"];
     const [selectedPeriod, setSelectedPeriod] = useState("오늘");
+    const [message, setMessage] = useState("");
 
     const index = ZODIACS.findIndex(z => z.name === selectedZodiac.name);
     const image = ZODIACS[index].image;
+
+    const StarChoose = async () => {
+        const korenPeriod = (period) => {
+            if(period === "오늘") return "today";
+            if(period === "내일") return "tomorrow";
+            if(period === "이달") return "month";
+            if(period === "올해") return "year";
+            else return "today";
+        }
+        if (!selectedZodiac) return;
+        const zodiac = ZODIACS.find(z => z.name === selectedZodiac.name);
+
+        try {
+            const response = await axios.get(`http://localhost:8080/horoscopes/${zodiac.id}/${korenPeriod(selectedPeriod)}`,{withCredentials: true});
+            const responseMessage = response.data.message;
+            setMessage(responseMessage);
+            // console.log(responseMessage);
+        } catch(error) {
+            if (error.response) {
+            // ❌ 서버 에러 응답
+            console.error(`❗ 오류 (${error.response.status}):`, error.response.data);
+            } else if (error.request) {
+            // ❗ 네트워크 에러
+            console.error('🌐 서버 응답 없음:', error.message);
+            } else {
+            // ❗ 기타 에러
+            console.error('⚠️ 요청 실패:', error.message);
+            }
+        }
+    };
+
+    useEffect(() => {
+        StarChoose();
+    }, [selectedZodiac, selectedPeriod])
 
     return (
         <div className="bg- [#050510] text-white">
@@ -120,8 +149,8 @@ export default function StarCard({ selectedZodiac, onSelect }) {
                             <h2 className="text-white text-2xl font-bold mb-3 drop-shadow-md">
                                 {getFormattedDate(selectedPeriod)}
                             </h2>
-                            <p className="text-white text-base drop-shadow-md">
-                                오늘의 운세는 좋을 것으로 예상됩니다. 그러므로
+                            <p className="text-white space-pre-wrap h-[290px] overflow-auto text-base text-left drop-shadow-md">
+                                {message}
                             </p>
                         </div>
 

@@ -1,6 +1,4 @@
 
-version: '3.8'
-
 services:
   db:
     image: mysql:8.0
@@ -29,7 +27,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: "1234"
       
       KAKAO_CLIENT_ID: "8491e41c71215f2ee7f33c66e8733bf1"
-      KAKAO_REDIRECT_URI: "http://localhost:8081/auth/kakao"
+      KAKAO_REDIRECT_URI: "http://localhost:3000/auth/kakao/login"
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       OPENAI_MODEL: "gpt-4o-mini"
       OPENAI_API_URL: "https://api.openai.com/v1/chat/completions"

@@ -11,6 +11,7 @@ const Input = () => {
   const wrapperRef = useRef(null);
   const [step, setStep] = useState('input');
   const [birth, setBirth] = useState("");
+  const [time, setTime] = useState("시간 모름");
 
   const [open, setOpen] = useState(false);
   const [year, setYear] = useState(2024);
@@ -31,6 +32,10 @@ const Input = () => {
   const [cardimg, setCardImg] = useState();
 
   const [error, setError] = useState("");
+
+  const handleChange = (e) => {
+    setTime(e.target.value); // 선택된 값 저장
+  };
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -85,6 +90,9 @@ const Input = () => {
         cardimg={cardimg}
         onBack={() => setStep('input')}
         Birth={birth}
+        Man={[man,woman]}
+        Solar={[solar,lunar]}
+        Time={time}
       />
     );
   }
@@ -190,7 +198,11 @@ const Input = () => {
         <div>
           <label className="block text-sm font-bold text-[#333] mb-2">태어난 시간</label>
           <div className="relative">
-            <select className="w-full h-12 pl-4 border border-[#ddd] rounded focus:border-[#3da8f5] focus:outline-none appearance-none bg-white">
+            <select 
+              className="w-full h-12 pl-4 border border-[#ddd] rounded focus:border-[#3da8f5] focus:outline-none appearance-none bg-white"
+              value={time}
+              onChange={handleChange}
+            >
               <option>시간 모름</option>
               <option>자시 (23:30 ~ 01:29)</option>
               <option>축시 (01:30 ~ 03:29)</option>
