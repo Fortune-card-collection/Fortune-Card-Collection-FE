@@ -1,11 +1,11 @@
-
 const Login = () => {
 
-    const KAKAO_REST_API_KEY = '8491e41c71215f2ee7f33c66e8733bf1';
+    const KAKAO_REST_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
     const REDIRECT_URI = "http://localhost:3000/auth/kakao/login";
 
     const handleLogin = () => {
-        const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+        console.log("로그인 화면으로 넘어가는 중...");
+        const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
         window.location.href = kakaoAuthURL;
     };
 

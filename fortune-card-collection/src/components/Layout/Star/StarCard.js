@@ -30,6 +30,8 @@ const ZODIACS = [
   { id: 'capricorn', name: '염소자리', image: StarCard12 },
 ];
 
+const domain = process.env.REACT_APP_BACKEND_DOMAIN_KEY;
+
 const getFormattedDate = (period) => {
   const today = new Date();
   const year = today.getFullYear();
@@ -57,7 +59,6 @@ const getFormattedDate = (period) => {
 
 
 export default function StarCard({ selectedZodiac, onSelect }) {
-    const periods = ["오늘", "내일", "이달", "올해"];
     const [selectedPeriod, setSelectedPeriod] = useState("오늘");
     const [message, setMessage] = useState("");
 
@@ -76,10 +77,11 @@ export default function StarCard({ selectedZodiac, onSelect }) {
         const zodiac = ZODIACS.find(z => z.name === selectedZodiac.name);
 
         try {
-            const response = await axios.get(`http://localhost:8080/horoscopes/${zodiac.id}/${korenPeriod(selectedPeriod)}`,{withCredentials: true});
+            console.log("쿠키:",document.cookie);
+            const response = await axios.get(`${domain}/horoscopes/${zodiac.id}/${korenPeriod(selectedPeriod)}`);
             const responseMessage = response.data.message;
             setMessage(responseMessage);
-            // console.log(responseMessage);
+            console.log("input:",responseMessage);
         } catch(error) {
             if (error.response) {
             // ❌ 서버 에러 응답
@@ -99,41 +101,26 @@ export default function StarCard({ selectedZodiac, onSelect }) {
     }, [selectedZodiac, selectedPeriod])
 
     return (
-        <div className="bg- [#050510] text-white">
+        <div className="flex flex-wrap justify-center items-center">
             <div className="bg-white max-w-[1100px] mx-auto shadow-sm" >
                 {/* StarSelectHeader */}
                 <StarSelectHeader
                     zodiacs={ZODIACS}
                     selectedZodiac={selectedZodiac}
                     onSelect={(zodiac) => onSelect(zodiac)}
+                    selectedPeriod={selectedPeriod}
+                    onSelectPeriod={setSelectedPeriod}
                 />
-
-                {/* 기간 선택 */}
-                <div className="flex justify-center items-center mt-4 mb-6 border-b border-gray-200 ">
-                    {periods.map(period => (
-                        <button
-                        key={period}
-                        onClick={() => setSelectedPeriod(period)}
-                        className={`text-xl font-semibold transition-colors duration-200 pb-2 w-[90px] ${
-                            selectedPeriod === period
-                            ? "font-extrabold text-yellow-400 border-b-2 border-yellow-400"
-                            : "text-gray-500"
-                        }`}
-                        >
-                        {period}
-                        </button>
-                    ))}
-                </div>
             </div>
 
             {/* 중앙 카드 */}
-            <div className="flex justify-center items-center">
-                <div className="relative  w-[309px] h-[500px] flex justify-center items-center">
+            <div className="flex w-full justify-center items-center py-7">
+                <div className="relative  w-[310px] h-[500px] flex justify-center items-center">
                     {/* 배경 이미지 */}
                     <img
                         src={ZODIACS[index].image}
                         alt="별 카드 이미지"
-                        className="absolute inset-0 w-full h-full object-cover shadow-lg"
+                        className="absolute inset-0 w-full h-full object-cover rounded-[49px] shadow-xl object-cover"
                     />
                     
                     {/* 블랙서클 + 텍스트 */}
@@ -149,7 +136,7 @@ export default function StarCard({ selectedZodiac, onSelect }) {
                             <h2 className="text-white text-2xl font-bold mb-3 drop-shadow-md">
                                 {getFormattedDate(selectedPeriod)}
                             </h2>
-                            <p className="text-white space-pre-wrap h-[290px] overflow-auto text-base text-left drop-shadow-md">
+                            <p className="text-white whitespace-pre-line h-[290px] overflow-auto text-base scrollbar-hide text-left drop-shadow-md">
                                 {message}
                             </p>
                         </div>

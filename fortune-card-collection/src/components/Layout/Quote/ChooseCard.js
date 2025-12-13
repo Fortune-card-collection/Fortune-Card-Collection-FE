@@ -2,20 +2,7 @@ import React, {useState, useEffect} from 'react';
 import QuoteCard from './QuoteCard';
 import axios from 'axios';
 
-const QUOTES = [
-  { text: "가장 큰 위험은 위험 없는 삶이다.", author: "스티븐 코비" },
-  { text: "행복은 이미 만들어져 있는 것이 아니다.", author: "달라이 라마" },
-  { text: "웃어야 복이 온다.", author: "한국 속담" },
-  { text: "가장 큰 위험은 위험 없는 삶이다.", author: "스티븐 코비" },
-  { text: "행복은 이미 만들어져 있는 것이 아니다.", author: "달라이 라마" },
-  { text: "웃어야 복이 온다.", author: "한국 속담" },
-  { text: "가장 큰 위험은 위험 없는 삶이다.", author: "스티븐 코비" },
-  { text: "행복은 이미 만들어져 있는 것이 아니다.", author: "달라이 라마" },
-  { text: "웃어야 복이 온다.", author: "한국 속담" },
-  { text: "가장 큰 위험은 위험 없는 삶이다.", author: "스티븐 코비" },
-  { text: "행복은 이미 만들어져 있는 것이 아니다.", author: "달라이 라마" },
-  { text: "웃어야 복이 온다.", author: "한국 속담" },
-];
+const domain = process.env.REACT_APP_BACKEND_DOMAIN_KEY;
 
 // 3. 오늘의 명언 카드 선택
 const ChooseCard = () => {
@@ -23,7 +10,6 @@ const ChooseCard = () => {
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [isFlipped, setIsFlipped] = useState(false);
-  const [quotes] = useState(() => [...QUOTES].sort(() => 0.5 - Math.random()));
   const [showQuoteCard, setShowQuoteCard] = useState(false);
 
   const [moveWhite, setMoveWhite] = useState("#1a1a2e");
@@ -35,27 +21,31 @@ const ChooseCard = () => {
   const [cornerOpacity, setCornerOpacity] = useState(0.3);
   const [starOpacity, setStarOpacity] = useState(0.7);
 
-  // const RandomQuote = async () => {
-  //   try {
-  //     const response = await axios.get(`http://localhost:8080/quotes/random`,{withCredentials: true});
-  //     console.log(response);
-  //   } catch(error) {
-  //     if (error.response) {
-  //       // ❌ 서버 에러 응답
-  //       console.error(`❗ 오류 (${error.response.status}):`, error.response.data);
-  //     } else if (error.request) {
-  //       // ❗ 네트워크 에러
-  //       console.error('🌐 서버 응답 없음:', error.message);
-  //     } else {
-  //       // ❗ 기타 에러
-  //       console.error('⚠️ 요청 실패:', error.message);
-  //     }
-  //   }
-  // }
+  const [ids, setIds] = useState([]);
 
-  // useEffect(() => {
-  //   RandomQuote();
-  // },[]);
+  const RandomQuote = async () => {
+    try {
+      const response = await axios.get(`${domain}/quotes/random`,{withCredentials: true});
+      console.log(response);
+      setIds(response.map(item => parseInt(item.id)));
+
+    } catch(error) {
+      if (error.response) {
+        // ❌ 서버 에러 응답
+        console.error(`❗ 오류 (${error.response.status}):`, error.response.data);
+      } else if (error.request) {
+        // ❗ 네트워크 에러
+        console.error('🌐 서버 응답 없음:', error.message);
+      } else {
+        // ❗ 기타 에러
+        console.error('⚠️ 요청 실패:', error.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    RandomQuote();
+  },[]);
 
   useEffect(() => {
     if (selectedCard !== null) {
@@ -156,7 +146,7 @@ const ChooseCard = () => {
   if (selectedCard !== null && showQuoteCard) {
       return (
         <QuoteCard 
-          quote={quotes[selectedCard]} 
+          quote={selectedCard} 
           onClose={() => {
             setSelectedCard(null);
             setShowQuoteCard(false);
@@ -202,7 +192,7 @@ const ChooseCard = () => {
           <div 
             className="relative w-40 h-64 md:w-48 md:h-72 cursor-pointer group transition-all duration-300 hover:-translate-y-6 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
             style={
-              selectedCard === 0
+              selectedCard === ids[0]
                 ? {
                     width: size.width,
                     height: size.height,
@@ -213,12 +203,12 @@ const ChooseCard = () => {
                   height: removeSize.height
                 }
             }
-            onClick={() => handleCardClick(0)}
+            onClick={() => handleCardClick(ids[0])}
           >
             <div 
               className="w-full h-full bg-[#1e293b] rounded-xl shadow-2xl border-[#475569] overflow-hidden flex items-center justify-center relative transform transition-transform group-hover:scale-105"
               style={
-                selectedCard === 0
+                selectedCard === ids[0]
                   ? {}
                   : {
                     backgroundColor: moveWhiteCard,
@@ -231,7 +221,7 @@ const ChooseCard = () => {
               <div 
                 className="text-4xl text-[#d4af37] animate-pulse"
                 style={
-                  selectedCard === 0
+                  selectedCard === ids[0]
                     ? {}
                     : {
                       opacity: starOpacity,
@@ -244,7 +234,7 @@ const ChooseCard = () => {
           <div 
             className="relative w-40 h-64 md:w-48 md:h-72 cursor-pointer group transition-all duration-300 hover:-translate-y-6 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
             style={
-              selectedCard === 1
+              selectedCard === ids[1]
                 ? {
                     width: size.width,
                     height: size.height,
@@ -255,12 +245,12 @@ const ChooseCard = () => {
                   height: removeSize.height
                 }
             }
-            onClick={() => handleCardClick(1)}
+            onClick={() => handleCardClick(ids[1])}
           >
             <div 
               className="w-full h-full rounded-xl shadow-2xl bg-[#1e293b] border-[#475569] overflow-hidden flex items-center justify-center relative transform transition-transform group-hover:scale-105"
               style={
-                selectedCard === 1
+                selectedCard === ids[1]
                   ? {}
                   : {
                     backgroundColor: moveWhiteCard,
@@ -273,7 +263,7 @@ const ChooseCard = () => {
               <div 
                 className="text-4xl text-[#d4af37] animate-pulse"
                 style={
-                  selectedCard === 1
+                  selectedCard === ids[1]
                     ? {}
                     : {
                       opacity: starOpacity,
@@ -286,7 +276,7 @@ const ChooseCard = () => {
           <div 
             className="relative md:w-48 md:h-72 cursor-pointer group transition-all duration-300 hover:-translate-y-6 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
             style={
-              selectedCard === 2
+              selectedCard === ids[2]
                 ? {
                     width: size.width,
                     height: size.height,
@@ -297,12 +287,12 @@ const ChooseCard = () => {
                   height: removeSize.height
                 }
             }
-            onClick={() => handleCardClick(2)}
+            onClick={() => handleCardClick(ids[2])}
           >
             <div 
               className="w-full h-full rounded-xl shadow-2xl bg-[#1e293b] border-[#475569] overflow-hidden flex items-center justify-center relative transform transition-transform group-hover:scale-105"
               style={
-                selectedCard === 2
+                selectedCard === ids[2]
                   ? {}
                   : {
                     backgroundColor: moveWhiteCard,
@@ -315,7 +305,7 @@ const ChooseCard = () => {
               <div 
                 className="text-4xl text-[#d4af37] opacity-70 animate-pulse"
                 style={
-                  selectedCard === 2
+                  selectedCard === ids[2]
                     ? {}
                     : {
                       opacity: starOpacity,

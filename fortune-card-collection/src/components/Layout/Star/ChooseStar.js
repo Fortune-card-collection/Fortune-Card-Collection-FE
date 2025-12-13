@@ -50,18 +50,23 @@ const ChooseStar = () => {
   }
 
   return (
-    <div className={`relative w-[${containerSize}px] h-[${containerSize}px] mx-auto my-6 flex items-center justify-center select-none animate-in fade-in duration-1000`}>
+    <div 
+      className={`relative mx-auto my-6 flex items-center justify-center select-none animate-in fade-in duration-1000`}
+       style={{
+        width: `${containerSize}px`,
+        height: `${containerSize + 60}px`, // ← 여기만 늘림
+      }}
+    >
       
       {/* 0. [NEW] 휠 전체 배경 (Deep Space Circle) */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-         {/* 메인 우주 배경 원 */}
-         <div className="w-[600px] h-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#1e293b] via-[#0f172a] to-[#020617] shadow-2xl overflow-hidden relative border border-[#1e293b]">
-            {/* 별 패턴 텍스처 */}
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30"></div>
-            {/* 은은한 네뷸라 효과 */}
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-purple-500/10 via-transparent to-blue-500/10"></div>
-            <div className="absolute bottom-0 right-0 w-2/3 h-2/3 bg-blue-600/5 blur-3xl rounded-full"></div>
-         </div>
+        {/* 우주 배경 원 */}
+        <div className="w-[600px] h-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#1e293b] via-[#0f172a] to-[#020617] shadow-2xl overflow-hidden relative border border-[#1e293b]">
+          {/* 별 패턴 텍스처 */}
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30"></div>
+          {/* 은은한 그라데이션 효과 */}
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-purple-500/20 via-transparent to-blue-500/20"></div>
+        </div>
       </div>
 
       {/* 1. 장식 궤도 라인 (Gold & Light Blue) */}
@@ -75,31 +80,26 @@ const ChooseStar = () => {
 
       {/* 2. 중앙 정보 허브 (Cosmic Window) */}
       <div className="absolute z-10 w-64 h-64 rounded-full shadow-[0_0_60px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center text-center border-[2px] border-[#d4af37]/50 transition-all duration-300 overflow-hidden group bg-black">
-         {/* 중앙 내부 배경 */}
-         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#1e3a8a] to-[#000]"></div>
-         <div className="absolute inset-0 opacity-50 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] animate-pulse"></div>
+        {/* 중앙 내부 배경 */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#1e3a8a] to-[#000]"></div>
+        <div className="absolute inset-0 opacity-50 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] animate-pulse"></div>
 
-         {hoveredZodiac ? (
-           <div className="relative z-10 animate-in zoom-in duration-300 flex flex-col items-center text-white">
+        {hoveredZodiac ? (
+          <div className="relative z-10 animate-in zoom-in duration-300 flex flex-col items-center text-white">
             <img
               src={hoveredZodiac.image}
               alt={hoveredZodiac.name}
               className="w-[130px] h-[130px] mb-2 drop-shadow-[0_0_15px_rgba(255,215,0,0.6)]"
             />
-             <div className="font-serif font-bold text-white text-3xl mb-1 tracking-wide drop-shadow-md -translate-y-[13px]">{hoveredZodiac.name}</div>
-             <div className="text-sm text-blue-200 font-medium tracking-widest uppercase -translate-y-[13px]">{hoveredZodiac.date}</div>
-             {/* <div className="mt-4 px-5 py-1.5 bg-white/10 backdrop-blur-md border border-white/30 text-[#d4af37] text-xs font-bold rounded-full shadow-lg tracking-wider -translate-y-[8px]">
-               CLICK
-             </div> */}
-           </div>
-         ) : (
-           <div className="relative z-10 flex flex-col items-center text-blue-200/40">
-             <Star className="w-10 h-10 mb-3 fill-white/10 text-white/20 animate-pulse" />
-             <div className="text-lg text-blue-100/60 font-serif font-medium leading-tight tracking-wide">
-               별자리를<br/>선택해 주세요
-             </div>
-           </div>
-         )}
+          </div>
+        ) : (
+          <div className="relative z-10 flex flex-col items-center text-blue-200/40">
+            <Star className="w-10 h-10 mb-3 fill-white/10 text-white/20 animate-pulse" />
+            <div className="text-lg text-blue-100/60 font-serif font-medium leading-tight tracking-wide">
+              별자리를<br/>선택해 주세요
+            </div>
+          </div>
+        )}
       </div>
 
       {/* 3. 별자리 아이콘 버튼 (Glass Style on Space) */}
@@ -111,17 +111,15 @@ const ChooseStar = () => {
             onClick={() => onSelectStar(zodiac)}
             onMouseEnter={() => setHoveredZodiac(zodiac)}
             onMouseLeave={() => setHoveredZodiac(null)}
-            className="absolute w-[110px] h-[110px] rounded-full
-                       flex items-center justify-center text-3xl text-blue-100
-                       hover:scale-125 hover:bg-[#d4af37] hover:text-[#0f172a] hover:border-transparent hover:shadow-[0_0_25px_rgba(212,175,55,0.6)]
+            className="absolute w-[110px] h-[110px] rounded-full flex items-center justify-center
+                       hover:scale-125 hover:bg-[#d4af37] hover:border-transparent 
+                       hover:shadow-[0_0_25px_rgba(212,175,55,0.6)]
                        transition-all duration-300 group z-20"
             style={{ 
               left: `calc(50% + ${radius * Math.cos(angle)}px - 55px + ${index === 11 ? -10 : 0}px)`, 
               top: `calc(50% + ${radius * Math.sin(angle)}px - 55px)`
             }}
           >
-             {/* bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg  */}
-            {/* <span className="transition-transform duration-300 group-hover:scale-110">{zodiac.icon}</span> */}
             <span className="flex flex-col items-center ">
               <img
                 src={zodiac.image}

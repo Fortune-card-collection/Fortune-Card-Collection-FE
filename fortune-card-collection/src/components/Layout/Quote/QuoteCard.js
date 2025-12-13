@@ -1,10 +1,33 @@
 import React, {useState} from "react";
+import axios from "axios";
 import Quote from "../../../assets/images/명언카드.svg";
+
+const domain = process.env.REACT_APP_BACKEND_DOMAIN_KEY;
 
 export default function QuoteCard({quote}) {
     const [isFlipped, setIsFlipped] = useState(true);
+    const [message, setMessage] = useState("");
 
-    
+    const ShowQuote = async () => {
+        try {
+            const response = await axios.get(`${domain}/quotes/${quote}`,{withCredentials: true});
+            console.log(response.text);
+            setMessage(response.text);
+
+        } catch(error) {
+            if (error.response) {
+                // ❌ 서버 에러 응답
+                console.error(`❗ 오류 (${error.response.status}):`, error.response.data);
+            } else if (error.request) {
+                // ❗ 네트워크 에러
+                console.error('🌐 서버 응답 없음:', error.message);
+            } else {
+                // ❗ 기타 에러
+                console.error('⚠️ 요청 실패:', error.message);
+            }
+        }
+    }
+
     return (
         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mt-9">
             <div className="flex justify-center items-center">
@@ -57,10 +80,10 @@ export default function QuoteCard({quote}) {
                             />
                             <div className="absolute inset-0 flex flex-col top-40 items-center text-center">
                                 <p className="text-black text-2xl font-bold drop-shadow-md px-[53px]">
-                                    웃어야 복이온다.. [정준영] 오늘의 명언
+                                    {message}
                                 </p>
                             </div>
-                            <button className="absolute bottom-[33px] w-[120px] h-[40px] border border-gray-600 text-gray-600 rounded-lg hover:text-black hover:border-black">
+                            <button className="absolute bottom-[45px] left-[120px] w-[120px] h-[40px] border border-white text-white rounded-lg hover:text-black hover:border-black">
                                 공유하기
                             </button>
                         </div>
