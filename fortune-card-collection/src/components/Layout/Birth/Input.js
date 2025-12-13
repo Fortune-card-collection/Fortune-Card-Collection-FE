@@ -1,10 +1,29 @@
 import React, {useState, useRef, useEffect} from "react";
+import axios from "axios";
 import { Search, Menu, Star, MessageCircle, Info, X, ChevronRight, Share2, RefreshCw, Calendar, Clock, Check } from 'lucide-react';
 import spring from "../../../assets/images/봄카드.svg";
 import summer from "../../../assets/images/여름카드.svg";
 import autumn from "../../../assets/images/가을카드.svg";
 import winter from "../../../assets/images/겨울카드.svg";
 import BirthCard from "./BirthCard";
+
+const TIME_OPTIONS = [
+  "시간 모름",
+  "자시 (23:30 ~ 01:29)",
+  "축시 (01:30 ~ 03:29)",
+  "인시 (03:30 ~ 05:29)",
+  "묘시 (05:30 ~ 07:29)",
+  "진시 (07:30 ~ 09:29)",
+  "사시 (09:30 ~ 11:29)",
+  "오시 (11:30 ~ 13:29)",
+  "미시 (13:30 ~ 15:29)",
+  "신시 (15:30 ~ 17:29)",
+  "유시 (17:30 ~ 19:29)",
+  "술시 (19:30 ~ 21:29)",
+  "해시 (21:30 ~ 23:29)",
+];
+
+const domain = process.env.REACT_APP_BACKEND_DOMAIN_KEY;
 
 //생년월일 입력 폼
 const Input = () => {
@@ -38,6 +57,7 @@ const Input = () => {
   };
 
   useEffect(() => {
+    userData();
     function handleClickOutside(event) {
       if (
         wrapperRef.current &&
@@ -84,6 +104,54 @@ const Input = () => {
     return true;
   }
 
+  const userData = async () => {
+    try {
+      const response = await axios.get(`${domain}/users/me`,{withCredentials: true});
+      console.log(response);
+
+      if(response.birthDate !== null) setBirth(response.birthDate);
+      if(response.birthTime !== null) {
+        if (response.birthTime) {
+          const index = TIME_OPTIONS.findIndex(option =>
+            option.startsWith(response.birthTime)
+          );
+          if (index !== -1) {
+            setTime(TIME_OPTIONS[index]);
+          }
+        }
+      }
+      if(response.lunarType !== null) {
+        if(response.lunarType === "solar") {
+          setSolar(true);
+          setLunar(false);
+        } else if(response.lunarType === "lunar") {
+          setSolar(false);
+          setLunar(true);
+        }
+      }
+      if(response.gender !== null) {
+        if(response.gender === "남성") {
+          setMan(true);
+          setWoman(false);
+        } else if(response.gender === "여성") {
+          setMan(false);
+          setWoman(true);
+        }
+      }
+    } catch(error) {
+      if (error.response) {
+        // ❌ 서버 에러 응답
+        console.error(`❗ 오류 (${error.response.status}):`, error.response.data);
+      } else if (error.request) {
+        // ❗ 네트워크 에러
+        console.error('🌐 서버 응답 없음:', error.message);
+      } else {
+        // ❗ 기타 에러
+        console.error('⚠️ 요청 실패:', error.message);
+      }
+    }
+  }
+
   if (step === 'result') {
     return (
       <BirthCard
@@ -106,7 +174,7 @@ const Input = () => {
             <input 
               type="text"
               placeholder="예: 20010101"
-              className="w-full h-12 pl-4 border border-[#ddd] rounded focus:border-[#3da8f5] focus:outline-none"
+              className="w-full h-12 pl-4 border text-[#333] border-[#ddd] rounded focus:border-[#3da8f5] focus:outline-none"
               value={birth}
               onChange={(e) => {
                 const onlyNums = e.target.value.replace(/[^0-9]/g, "");
@@ -130,7 +198,7 @@ const Input = () => {
           <div className="relative" ref={wrapperRef}>
             <div className="absolute left-[0px] top-[-15px] bg-white shadow-lg rounded-lg p-4 w-[300px] z-50 border border-gray-200">
               {/* year */}
-              <div className="mb-2">
+              <div className="mb-2 mt-[-8px]">
                 <label className="text-sm text-gray-600">Year</label>
                 <select
                   className="w-full border border-gray-300 rounded px-2 py-2"
@@ -199,23 +267,15 @@ const Input = () => {
           <label className="block text-sm font-bold text-[#333] mb-2">태어난 시간</label>
           <div className="relative">
             <select 
-              className="w-full h-12 pl-4 border border-[#ddd] rounded focus:border-[#3da8f5] focus:outline-none appearance-none bg-white"
+              className="w-full h-12 pl-4 text-[#333] border border-[#ddd] rounded focus:border-[#3da8f5] focus:outline-none appearance-none bg-white"
               value={time}
               onChange={handleChange}
             >
-              <option>시간 모름</option>
-              <option>자시 (23:30 ~ 01:29)</option>
-              <option>축시 (01:30 ~ 03:29)</option>
-              <option>인시 (03:30 ~ 05:29)</option>
-              <option>묘시 (05:30 ~ 07:29)</option>
-              <option>진시 (07:30 ~ 09:29)</option>
-              <option>사시 (09:30 ~ 11:29)</option>
-              <option>오시 (11:30 ~ 13:29)</option>
-              <option>미시 (13:30 ~ 15:29)</option>
-              <option>신시 (15:30 ~ 17:29)</option>
-              <option>유시 (17:30 ~ 19:29)</option>
-              <option>술시 (19:30 ~ 21:29)</option>
-              <option>해시 (21:30 ~ 23:29)</option>
+              {TIME_OPTIONS.map((time, index) => (
+                <option key={index} value={time}>
+                  {time}
+                </option>
+              ))}
             </select>
             <Clock className="absolute right-4 top-3.5 w-5 h-5 text-[#999]" />
           </div>
@@ -228,7 +288,7 @@ const Input = () => {
               <button 
                 className={
                   `flex-1 font-medium
-                  ${solar ? "bg-[#3da8f5] text-white" : "bg-white text-[#666] hover:bg-[#f9f9f9]"}`
+                  ${solar ? "bg-[#3da8f5] text-white" : "bg-white text-[#333] hover:bg-[#f9f9f9]"}`
                 }
                 onClick={() => {setSolar(true); setLunar(false);}}
               >
@@ -237,7 +297,7 @@ const Input = () => {
               <button 
                 className={
                   `flex-1 font-medium
-                  ${lunar ? "bg-[#3da8f5] text-white" : "bg-white text-[#666] hover:bg-[#f9f9f9]"}`
+                  ${lunar ? "bg-[#3da8f5] text-white" : "bg-white text-[#333] hover:bg-[#f9f9f9]"}`
                 }
                 onClick={() => {setSolar(false); setLunar(true);}}
               >
@@ -252,7 +312,7 @@ const Input = () => {
               <button
                 className={
                   `flex-1 font-medium
-                  ${man ? "bg-[#3da8f5] text-white" : "bg-white text-[#666] hover:bg-[#f9f9f9]"}`
+                  ${man ? "bg-[#3da8f5] text-white" : "bg-white text-[#333] hover:bg-[#f9f9f9]"}`
                 }
                 onClick={() => {setMan(true); setWoman(false);}}
               >
@@ -261,7 +321,7 @@ const Input = () => {
               <button
                 className={
                   `flex-1 font-medium
-                  ${woman ? "bg-[#3da8f5] text-white" : "bg-white text-[#666] hover:bg-[#f9f9f9]"}`
+                  ${woman ? "bg-[#3da8f5] text-white" : "bg-white text-[#333] hover:bg-[#f9f9f9]"}`
                 }
                 onClick={() => {setWoman(true); setMan(false);}}
               >
