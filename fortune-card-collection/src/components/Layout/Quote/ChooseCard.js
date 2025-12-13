@@ -25,9 +25,9 @@ const ChooseCard = () => {
 
   const RandomQuote = async () => {
     try {
-      const response = await axios.get(`${domain}/quotes/random`,{withCredentials: true});
-      console.log(response);
-      setIds(response.map(item => parseInt(item.id)));
+      const response = await axios.get(`${domain}/quotes/random`);
+      console.log(response.data);
+      setIds(response.data.map(item => parseInt(item.id)));
 
     } catch(error) {
       if (error.response) {
