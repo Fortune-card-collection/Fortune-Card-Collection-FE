@@ -2,14 +2,16 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Quote from "../../../assets/images/명언카드.svg";
 
+const backendURL = process.env.REACT_APP_BACKEND_DOMAIN_KEY;
+
 export default function QuoteCard({quote}) {
     const [isFlipped, setIsFlipped] = useState(true);
     const [message, setMessage] = useState("");
 
     const ShowQuote = async () => {
         try {
-            const response = await axios.get(`/quotes/${quote}`);
-            console.log(response.data.text);
+            const response = await axios.get(`${backendURL}/quotes/${quote}`);
+            // console.log(response.data.text);
             setMessage(response.data.text);
 
         } catch(error) {
@@ -27,7 +29,7 @@ export default function QuoteCard({quote}) {
     }
 
     useEffect(() => {
-        console.log("명언 카드 실행됨",quote);
+        // console.log("명언 카드 실행됨",quote);
         ShowQuote();
     },[]);
 

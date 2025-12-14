@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import QuoteCard from './QuoteCard';
 import axios from 'axios';
 
+const backendURL = process.env.REACT_APP_BACKEND_DOMAIN_KEY;
+
 // 3. 오늘의 명언 카드 선택
 const ChooseCard = () => {
   const [quoteList, setQuoteList] = useState([]);
@@ -23,8 +25,8 @@ const ChooseCard = () => {
 
   const RandomQuote = async () => {
     try {
-      const response = await axios.get(`/quotes/random`);
-      console.log(response.data);
+      const response = await axios.get(`${backendURL}/quotes/random`);
+      // console.log(response.data);
       setIds(response.data.map(item => parseInt(item.id)));
 
     } catch(error) {
@@ -83,8 +85,6 @@ const ChooseCard = () => {
         setMoveWhite(`rgba(${startColor.r}, ${startColor.g}, ${startColor.b}, ${inv})`);
         setMoveWhiteCard(`rgba(${startCardColor.r}, ${startCardColor.g}, ${startCardColor.b}, ${inv})`);
         setBgOpacity(1 - opacity);
-
-        console.log(`rgba(${startColor.r}, ${startColor.g}, ${startColor.b}, ${inv})`);
 
         setCornerOpacity(0.3 * inv);
         setStarOpacity(0.7 * inv);

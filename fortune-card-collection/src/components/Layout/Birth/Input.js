@@ -23,6 +23,8 @@ const TIME_OPTIONS = [
   "해시 (21:30 ~ 23:29)",
 ];
 
+const backendURL = process.env.REACT_APP_BACKEND_DOMAIN_KEY;
+
 //생년월일 입력 폼
 const Input = () => {
   const wrapperRef = useRef(null);
@@ -104,16 +106,16 @@ const Input = () => {
 
   const userData = async () => {
     try {
-      const response = await axios.get(`/users/me`,{withCredentials: true});
+      const response = await axios.get(`${backendURL}/users/me`,{withCredentials: true});
       const data = response.data;
-      console.log(response);
+      // console.log(response);
 
       if (data?.birthDate) setBirth(data.birthDate);
       if (data?.birthTime) {
         const index = TIME_OPTIONS.findIndex(option =>
           option.startsWith(data?.birthTime)
         );
-        console.log("index:",index);
+        // console.log("index:",index);
         if (index !== -1) setTime(TIME_OPTIONS[index]);
       }
       if(data?.lunarType !== null) {
