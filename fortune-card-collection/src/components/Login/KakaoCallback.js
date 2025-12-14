@@ -3,8 +3,6 @@ import React, { useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 
-const domain = process.env.REACT_APP_BACKEND_DOMAIN_KEY;
-
 const KakaoCallback = ({ setLogin }) => {
   const calledRef = useRef(false);
   const [searchParams] = useSearchParams();
@@ -12,7 +10,7 @@ const KakaoCallback = ({ setLogin }) => {
 
   const kakaoLogin = async (code) => {
     axios.get(
-      `${domain}/auth/kakao/login?code=${code}`,
+      `/auth/kakao/login?code=${code}`,
       { withCredentials: true }
     )
     .then ( (response) => {

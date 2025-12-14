@@ -30,8 +30,6 @@ const ZODIACS = [
   { id: 'capricorn', name: '염소자리', image: StarCard12 },
 ];
 
-const domain = process.env.REACT_APP_BACKEND_DOMAIN_KEY;
-
 const getFormattedDate = (period) => {
   const today = new Date();
   const year = today.getFullYear();
@@ -78,7 +76,7 @@ export default function StarCard({ selectedZodiac, onSelect }) {
 
         try {
             console.log("쿠키:",document.cookie);
-            const response = await axios.get(`${domain}/horoscopes/${zodiac.id}/${korenPeriod(selectedPeriod)}`);
+            const response = await axios.get(`/horoscopes/${zodiac.id}/${korenPeriod(selectedPeriod)}`);
             const responseMessage = response.data.message;
             setMessage(responseMessage);
             console.log("input:",responseMessage);

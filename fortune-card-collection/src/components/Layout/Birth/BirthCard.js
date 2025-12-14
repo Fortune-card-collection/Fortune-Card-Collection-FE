@@ -2,8 +2,6 @@ import React, {useEffect, useState} from "react";
 import whiteCircle from "../../../assets/images/whiteCircle.svg";
 import axios from "axios";
 
-const domain = process.env.REACT_APP_BACKEND_DOMAIN_KEY;
-
 export default function BirthCard({ cardimg, onBack, Birth, Man, Solar, Time }) {
     const [userData, setUserData] = useState({});
     const [message, setMessage] = useState("");
@@ -15,16 +13,18 @@ export default function BirthCard({ cardimg, onBack, Birth, Man, Solar, Time }) 
         // Solar 배열: [solar, lunar]
         const isSolar = Solar[0]; // solar이 true면 양력
         const calendar = isSolar ? "solar" : "lunar";
+        const time = Time.split(" ")[0];
+        console.log("시간:",time);
 
         const birth = {
             "birthDate": Birth,
-            "birthTime": Time,
+            "birthTime": time,
             "lunarType": calendar,
             "gender": gender,
         }
         try {
             console.log("birth:",birth);
-            const response_birth = await axios.patch(`${domain}/users/me`,birth,{withCredentials: true});
+            const response_birth = await axios.patch(`/users/me`,birth,{withCredentials: true});
             console.log("답변",response_birth.data);
             setUserData(response_birth.data);
         } catch(error) {
@@ -40,13 +40,32 @@ export default function BirthCard({ cardimg, onBack, Birth, Man, Solar, Time }) 
             }
         }
         try {
-            const response = await axios.post(`${domain}/fortune/personal/today`,userData,{withCredentials: true});
+            const response = await axios.post(`/fortune/personal/today`,{withCredentials: true});
             const responseMessage = response.data.message;
+            console.log("메세지",responseMessage);
             setMessage(responseMessage);
         } catch(error) {
             if (error.response) {
                 // ❌ 서버 에러 응답
                 console.error(`❗ 오류 (${error.response.status}):`, error.response.data);
+                if(error.response.data === "Query did not return a unique result: 2 results were returned") {
+                    try {
+                        const responses = await axios.get(`/fortune/personal/today`,{withCredentials: true});
+                        const responseMessage = responses.data.message;
+                        setMessage("메세지",responseMessage);
+                    } catch(error) {
+                        if (error.responses) {
+                            // ❌ 서버 에러 응답
+                            console.error(`❗ 오류 (${error.responses.status}):`, error.responses.data);
+                        } else if (error.request) {
+                            // ❗ 네트워크 에러
+                            console.error('🌐 서버 응답 없음:', error.message);
+                        } else {
+                            // ❗ 기타 에러
+                            console.error('⚠️ 요청 실패:', error.message);
+                        }
+                    }
+                }
             } else if (error.request) {
                 // ❗ 네트워크 에러
                 console.error('🌐 서버 응답 없음:', error.message);

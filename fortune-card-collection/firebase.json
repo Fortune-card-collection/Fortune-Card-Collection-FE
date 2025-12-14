@@ -5,6 +5,28 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/users/**",
+        "destination": "http://54.180.134.201:8080"
+      },
+      {
+        "source": "/fortune/**",
+        "destination": "http://54.180.134.201:8080"
+      },
+      {
+        "source": "/auth/**",
+        "destination": "http://54.180.134.201:8080"
+      },
+      {
+        "source": "/horoscopes/**",
+        "destination": "http://54.180.134.201:8080"
+      },
+      {
+        "source": "/quotes/**",
+        "destination": "http://54.180.134.201:8080"
+      }
     ]
   }
 }

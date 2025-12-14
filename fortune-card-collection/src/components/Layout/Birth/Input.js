@@ -23,8 +23,6 @@ const TIME_OPTIONS = [
   "해시 (21:30 ~ 23:29)",
 ];
 
-const domain = process.env.REACT_APP_BACKEND_DOMAIN_KEY;
-
 //생년월일 입력 폼
 const Input = () => {
   const wrapperRef = useRef(null);
@@ -48,7 +46,7 @@ const Input = () => {
   const [woman, setWoman] = useState(true);
   const [man, setMan] = useState(false);
 
-  const [cardimg, setCardImg] = useState();
+  const [cardimg, setCardImg] = useState("");
 
   const [error, setError] = useState("");
 
@@ -106,34 +104,32 @@ const Input = () => {
 
   const userData = async () => {
     try {
-      const response = await axios.get(`${domain}/users/me`,{withCredentials: true});
+      const response = await axios.get(`/users/me`,{withCredentials: true});
+      const data = response.data;
       console.log(response);
 
-      if(response.birthDate !== null) setBirth(response.birthDate);
-      if(response.birthTime !== null) {
-        if (response.birthTime) {
-          const index = TIME_OPTIONS.findIndex(option =>
-            option.startsWith(response.birthTime)
-          );
-          if (index !== -1) {
-            setTime(TIME_OPTIONS[index]);
-          }
-        }
+      if (data?.birthDate) setBirth(data.birthDate);
+      if (data?.birthTime) {
+        const index = TIME_OPTIONS.findIndex(option =>
+          option.startsWith(data?.birthTime)
+        );
+        console.log("index:",index);
+        if (index !== -1) setTime(TIME_OPTIONS[index]);
       }
-      if(response.lunarType !== null) {
-        if(response.lunarType === "solar") {
+      if(data?.lunarType !== null) {
+        if(data?.lunarType === "solar") {
           setSolar(true);
           setLunar(false);
-        } else if(response.lunarType === "lunar") {
+        } else if(data?.lunarType === "lunar") {
           setSolar(false);
           setLunar(true);
         }
       }
-      if(response.gender !== null) {
-        if(response.gender === "남성") {
+      if(data?.gender !== null) {
+        if(data?.gender === "남성") {
           setMan(true);
           setWoman(false);
-        } else if(response.gender === "여성") {
+        } else if(data?.gender === "여성") {
           setMan(false);
           setWoman(true);
         }
