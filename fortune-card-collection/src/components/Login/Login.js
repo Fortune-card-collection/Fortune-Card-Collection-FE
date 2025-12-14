@@ -1,7 +1,7 @@
 const Login = () => {
 
     const KAKAO_REST_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-    const REDIRECT_URI = "http://localhost:3000/auth/kakao/login";
+    const REDIRECT_URI = "https://fortune-card-collection.web.app/auth/kakao/login";
 
     const handleLogin = () => {
         console.log("로그인 화면으로 넘어가는 중...");

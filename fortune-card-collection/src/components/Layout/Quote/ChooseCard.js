@@ -2,8 +2,6 @@ import React, {useState, useEffect} from 'react';
 import QuoteCard from './QuoteCard';
 import axios from 'axios';
 
-const domain = process.env.REACT_APP_BACKEND_DOMAIN_KEY;
-
 // 3. 오늘의 명언 카드 선택
 const ChooseCard = () => {
   const [quoteList, setQuoteList] = useState([]);
@@ -25,9 +23,9 @@ const ChooseCard = () => {
 
   const RandomQuote = async () => {
     try {
-      const response = await axios.get(`${domain}/quotes/random`,{withCredentials: true});
-      console.log(response);
-      setIds(response.map(item => parseInt(item.id)));
+      const response = await axios.get(`/quotes/random`);
+      console.log(response.data);
+      setIds(response.data.map(item => parseInt(item.id)));
 
     } catch(error) {
       if (error.response) {

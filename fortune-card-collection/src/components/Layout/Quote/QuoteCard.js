@@ -1,8 +1,6 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Quote from "../../../assets/images/명언카드.svg";
-
-const domain = process.env.REACT_APP_BACKEND_DOMAIN_KEY;
 
 export default function QuoteCard({quote}) {
     const [isFlipped, setIsFlipped] = useState(true);
@@ -10,9 +8,9 @@ export default function QuoteCard({quote}) {
 
     const ShowQuote = async () => {
         try {
-            const response = await axios.get(`${domain}/quotes/${quote}`,{withCredentials: true});
-            console.log(response.text);
-            setMessage(response.text);
+            const response = await axios.get(`/quotes/${quote}`);
+            console.log(response.data.text);
+            setMessage(response.data.text);
 
         } catch(error) {
             if (error.response) {
@@ -27,6 +25,11 @@ export default function QuoteCard({quote}) {
             }
         }
     }
+
+    useEffect(() => {
+        console.log("명언 카드 실행됨",quote);
+        ShowQuote();
+    },[]);
 
     return (
         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mt-9">
@@ -78,8 +81,8 @@ export default function QuoteCard({quote}) {
                                 alt="명언 카드 이미지"
                                 className="w-full h-full object-cover shadow-lg rounded-xl"
                             />
-                            <div className="absolute inset-0 flex flex-col top-40 items-center text-center">
-                                <p className="text-black text-2xl font-bold drop-shadow-md px-[53px]">
+                            <div className="absolute inset-0 flex flex-col top-[180px] items-center text-center">
+                                <p className="text-black text-2xl font-bold drop-shadow-md px-[60px]">
                                     {message}
                                 </p>
                             </div>
