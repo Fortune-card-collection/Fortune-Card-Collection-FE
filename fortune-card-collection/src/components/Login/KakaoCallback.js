@@ -3,6 +3,8 @@ import React, { useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 
+const backendURL = process.env.REACT_APP_BACKEND_DOMAIN_KEY;
+
 const KakaoCallback = ({ setLogin }) => {
   const calledRef = useRef(false);
   const [searchParams] = useSearchParams();
@@ -10,11 +12,11 @@ const KakaoCallback = ({ setLogin }) => {
 
   const kakaoLogin = async (code) => {
     axios.get(
-      `/auth/kakao/login?code=${code}`,
+      `${backendURL}/auth/kakao/login?code=${code}`,
       { withCredentials: true }
     )
     .then ( (response) => {
-      console.log("답변:", response);
+      // console.log("답변:", response);
       if ( response.data === "로그인 성공!" ) {
         setLogin("login");
       }
@@ -30,7 +32,7 @@ const KakaoCallback = ({ setLogin }) => {
     if (calledRef.current) return;
     calledRef.current = true;
 
-    console.log("code =", code);
+    // console.log("code =", code);
     kakaoLogin(code);
   }, [code]);
 

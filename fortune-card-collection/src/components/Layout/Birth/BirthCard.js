@@ -2,9 +2,15 @@ import React, {useEffect, useState} from "react";
 import whiteCircle from "../../../assets/images/whiteCircle.svg";
 import axios from "axios";
 
+const backendURL = process.env.REACT_APP_BACKEND_DOMAIN_KEY;
+
 export default function BirthCard({ cardimg, onBack, Birth, Man, Solar, Time }) {
     const [userData, setUserData] = useState({});
     const [message, setMessage] = useState("");
+
+    useEffect(() => {
+        BirthChoose();
+    },[])
 
     const BirthChoose = async () => {
         const isMale = Man[0]; // 만약 man이 true면 남성
@@ -14,7 +20,7 @@ export default function BirthCard({ cardimg, onBack, Birth, Man, Solar, Time }) 
         const isSolar = Solar[0]; // solar이 true면 양력
         const calendar = isSolar ? "solar" : "lunar";
         const time = Time.split(" ")[0];
-        console.log("시간:",time);
+        // console.log("시간:",time);
 
         const birth = {
             "birthDate": Birth,
@@ -23,9 +29,9 @@ export default function BirthCard({ cardimg, onBack, Birth, Man, Solar, Time }) 
             "gender": gender,
         }
         try {
-            console.log("birth:",birth);
-            const response_birth = await axios.patch(`/users/me`,birth,{withCredentials: true});
-            console.log("답변",response_birth.data);
+            // console.log("birth:",birth);
+            const response_birth = await axios.patch(`${backendURL}/users/me`,birth,{withCredentials: true});
+            // console.log("답변",response_birth.data);
             setUserData(response_birth.data);
         } catch(error) {
             if (error.response_birth) {
@@ -40,32 +46,14 @@ export default function BirthCard({ cardimg, onBack, Birth, Man, Solar, Time }) 
             }
         }
         try {
-            const response = await axios.post(`/fortune/personal/today`,{withCredentials: true});
+            const response = await axios.post(`${backendURL}/fortune/personal/today`,userData,{withCredentials: true});
             const responseMessage = response.data.message;
-            console.log("메세지",responseMessage);
+            // console.log("메세지",responseMessage);
             setMessage(responseMessage);
         } catch(error) {
             if (error.response) {
                 // ❌ 서버 에러 응답
                 console.error(`❗ 오류 (${error.response.status}):`, error.response.data);
-                if(error.response.data === "Query did not return a unique result: 2 results were returned") {
-                    try {
-                        const responses = await axios.get(`/fortune/personal/today`,{withCredentials: true});
-                        const responseMessage = responses.data.message;
-                        setMessage("메세지",responseMessage);
-                    } catch(error) {
-                        if (error.responses) {
-                            // ❌ 서버 에러 응답
-                            console.error(`❗ 오류 (${error.responses.status}):`, error.responses.data);
-                        } else if (error.request) {
-                            // ❗ 네트워크 에러
-                            console.error('🌐 서버 응답 없음:', error.message);
-                        } else {
-                            // ❗ 기타 에러
-                            console.error('⚠️ 요청 실패:', error.message);
-                        }
-                    }
-                }
             } else if (error.request) {
                 // ❗ 네트워크 에러
                 console.error('🌐 서버 응답 없음:', error.message);
@@ -74,55 +62,59 @@ export default function BirthCard({ cardimg, onBack, Birth, Man, Solar, Time }) 
                 console.error('⚠️ 요청 실패:', error.message);
             }
         }
-    }
-
-    useEffect(() => {
-        BirthChoose();
-    },[])
+    };
 
     return (
-        <div className="duration-500 mt-9 mb-9">
-            <div className="flex justify-center items-center">
-                <div className="relative w-[368.1px] h-[500px] flex justify-center items-center">
-                    <img
-                        src={cardimg}
-                        alt="별 카드 이미지"
-                        className="absolute inset-0 w-full h-full object-cover shadow-lg rounded-xl"
-                    />
+        <div>
+            {message === "" ? (
+                <div className="flex items-center justify-center h-64">
+                    <div className="w-12 h-12 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
                 </div>
+            ) : (
+                <div className="duration-500 mt-9 mb-9">
+                    <div className="flex justify-center items-center">
+                        <div className="relative w-[368.1px] h-[500px] flex justify-center items-center">
+                            <img
+                                src={cardimg}
+                                alt="별 카드 이미지"
+                                className="absolute inset-0 w-full h-full object-cover shadow-lg rounded-xl"
+                            />
+                        </div>
 
-                <div className="absolute flex justify-center items-center">
-                    {/* 블랙 원 이미지 */}
-                    <img
-                        src={whiteCircle}
-                        alt="원형 배경"
-                        className="w-[370.15px] h-[500px] object-cover"
-                    />
-                    {/* 텍스트 */}
-                    <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
-                        <h2 className="text-black text-2xl font-bold mb-3 drop-shadow-md">
-                            {Birth.slice(0,4)}.{Birth.slice(4,6)}.{Birth.slice(6,8)} 운세
-                        </h2>
-                        <p className="text-black space-pre-wrap h-[290px] overflow-auto text-left text-base drop-shadow-md px-5">
-                            {message}
-                        </p>
+                        <div className="absolute flex justify-center items-center">
+                            {/* 블랙 원 이미지 */}
+                            <img
+                                src={whiteCircle}
+                                alt="원형 배경"
+                                className="w-[370.15px] h-[500px] object-cover"
+                            />
+                            {/* 텍스트 */}
+                            <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
+                                <h2 className="text-black text-2xl font-bold mb-5 drop-shadow-md">
+                                    {Birth.slice(0,4)}.{Birth.slice(4,6)}.{Birth.slice(6,8)} 운세
+                                </h2>
+                                <p className="text-black space-pre-wrap h-[200px] overflow-auto text-left text-base drop-shadow-md px-[50px]">
+                                    {message}
+                                </p>
+                            </div>
+                            <button
+                                className="absolute bottom-[33px] w-[120px] h-[40px] border border-gray-600 text-gray-600 rounded-lg hover:text-black hover:border-black"
+                            >
+                                공유하기
+                            </button>
+                        </div>
                     </div>
-                    <button
-                        className="absolute bottom-[33px] w-[120px] h-[40px] border border-gray-600 text-gray-600 rounded-lg hover:text-black hover:border-black"
-                    >
-                        공유하기
-                    </button>
-                </div>
-            </div>
 
-            <div className="flex justify-center items-center">
-                <button
-                    onClick={onBack}
-                    className="px-[90px] py-2 bg-gray-200 text-gray-600 rounded-lg hover:bg-gray-200 font-medium text-sm mt-3"
-                >
-                    다시 입력하기
-                </button>
-            </div>
+                    <div className="flex justify-center items-center">
+                        <button
+                            onClick={onBack}
+                            className="px-[90px] py-2 bg-gray-200 text-gray-600 rounded-lg hover:bg-gray-200 font-medium text-sm mt-3"
+                        >
+                            다시 입력하기
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

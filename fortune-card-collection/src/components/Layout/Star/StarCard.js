@@ -55,6 +55,7 @@ const getFormattedDate = (period) => {
   return "";
 };
 
+const backendURL = process.env.REACT_APP_BACKEND_DOMAIN_KEY;
 
 export default function StarCard({ selectedZodiac, onSelect }) {
     const [selectedPeriod, setSelectedPeriod] = useState("오늘");
@@ -75,11 +76,11 @@ export default function StarCard({ selectedZodiac, onSelect }) {
         const zodiac = ZODIACS.find(z => z.name === selectedZodiac.name);
 
         try {
-            console.log("쿠키:",document.cookie);
-            const response = await axios.get(`/horoscopes/${zodiac.id}/${korenPeriod(selectedPeriod)}`);
+            // console.log("쿠키:",document.cookie);
+            const response = await axios.get(`${backendURL}/horoscopes/${zodiac.id}/${korenPeriod(selectedPeriod)}`);
             const responseMessage = response.data.message;
             setMessage(responseMessage);
-            console.log("input:",responseMessage);
+            // console.log("input:",responseMessage);
         } catch(error) {
             if (error.response) {
             // ❌ 서버 에러 응답
@@ -131,10 +132,10 @@ export default function StarCard({ selectedZodiac, onSelect }) {
                         />
                         {/* 텍스트 */}
                         <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
-                            <h2 className="text-white text-2xl font-bold mb-3 drop-shadow-md">
+                            <h2 className="text-white text-2xl font-bold mb-5 drop-shadow-md">
                                 {getFormattedDate(selectedPeriod)}
                             </h2>
-                            <p className="text-white whitespace-pre-line h-[290px] overflow-auto text-base scrollbar-hide text-left drop-shadow-md">
+                            <p className="text-white whitespace-pre-line h-[250px] overflow-auto text-base scrollbar-hide text-left drop-shadow-md">
                                 {message}
                             </p>
                         </div>
