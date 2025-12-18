@@ -74,15 +74,30 @@ const Input = () => {
   }, []);
 
   function season(a) {
-    if (a.length < 6) {
+    if (a.length < 8) {
       setError("생년월일을 입력해주세요");
       return false;
     }
 
     const selectMonth = parseInt(a.slice(4, 6));
-    if (selectMonth < 1 || selectMonth > 12 || parseInt(a.slice(0, 4)) > nowYear || parseInt(a.slice(6, 8) > 31)) {
+    const selectYear = parseInt(a.slice(0, 4));
+    const selectDay = parseInt(a.slice(6, 8));
+
+    if (selectMonth < 1 || selectMonth > 12 || selectYear > nowYear) {
       setError("생년월일을 올바르게 입력해주세요");
       return false;
+    } else {
+      // Date 객체로 실제 날짜 생성
+      const date = new Date(selectYear, selectMonth - 1, day); // month는 0~11
+      // Date 객체가 입력한 값과 동일한지 확인
+      if (
+        date.getFullYear() !== selectYear ||
+        date.getMonth() + 1 !== selectMonth ||
+        date.getDate() !== selectDay
+      ) {
+        setError("생년월일을 올바르게 입력해주세요");
+        return false;
+      } 
     }
 
     if(selectMonth >= 3 && selectMonth <=5 ) {
