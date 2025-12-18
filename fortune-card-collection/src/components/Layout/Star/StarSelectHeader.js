@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 
 export default function StarSelectHeader({ zodiacs, selectedZodiac, onSelect, selectedPeriod, onSelectPeriod}) {
     const periods = ["오늘", "내일", "이달", "올해"];

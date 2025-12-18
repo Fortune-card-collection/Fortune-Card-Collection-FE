@@ -88,9 +88,6 @@ export default function QuoteCard({quote}) {
                                     {message}
                                 </p>
                             </div>
-                            <button className="absolute bottom-[45px] left-[120px] w-[120px] h-[40px] border border-white text-white rounded-lg hover:text-black hover:border-black">
-                                공유하기
-                            </button>
                         </div>
                     </div>
                 </div>
