@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import StarSelectHeader from "./StarSelectHeader";
-import StarCard1 from "../../../assets/images/물고기자리카드.svg";
+import StarCard1 from "../../../assets/images/물병자리카드.svg";
 import StarCard2 from "../../../assets/images/물고기자리카드.svg";
 import StarCard3 from "../../../assets/images/양자리카드.svg";
 import StarCard4 from "../../../assets/images/황소자리카드.svg";
@@ -135,16 +135,10 @@ export default function StarCard({ selectedZodiac, onSelect }) {
                             <h2 className="text-white text-2xl font-bold mb-5 drop-shadow-md">
                                 {getFormattedDate(selectedPeriod)}
                             </h2>
-                            <p className="text-white whitespace-pre-line h-[250px] overflow-auto text-base scrollbar-hide text-left drop-shadow-md">
+                            <p className="text-white whitespace-pre-line overflow-auto text-base scrollbar-hide text-left drop-shadow-md pl-2">
                                 {message}
                             </p>
                         </div>
-
-                        <button
-                            className="absolute bottom-[-5px] w-[120px] h-[40px] border border-white text-white rounded-lg hover:text-yellow-400 hover:border-yellow-400"
-                        >
-                            공유하기
-                        </button>
                     </div>
 
                 </div>

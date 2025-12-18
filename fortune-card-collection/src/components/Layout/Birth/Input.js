@@ -1,6 +1,6 @@
 import React, {useState, useRef, useEffect} from "react";
 import axios from "axios";
-import { Search, Menu, Star, MessageCircle, Info, X, ChevronRight, Share2, RefreshCw, Calendar, Clock, Check } from 'lucide-react';
+import { Calendar, Clock } from 'lucide-react';
 import spring from "../../../assets/images/봄카드.svg";
 import summer from "../../../assets/images/여름카드.svg";
 import autumn from "../../../assets/images/가을카드.svg";
@@ -154,7 +154,6 @@ const Input = () => {
     return (
       <BirthCard
         cardimg={cardimg}
-        onBack={() => setStep('input')}
         Birth={birth}
         Man={[man,woman]}
         Solar={[solar,lunar]}

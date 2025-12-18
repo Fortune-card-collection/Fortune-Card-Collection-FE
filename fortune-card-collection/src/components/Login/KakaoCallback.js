@@ -49,7 +49,7 @@ const KakaoCallback = ({ setLogin }) => {
         shadow-lg
         flex items-center justify-center
         gap-3
-        animate-pulse    /* 깜빡임 효과 */
+        animate-pulse
       ">
         카카오 로그인 처리 중...
       </div>

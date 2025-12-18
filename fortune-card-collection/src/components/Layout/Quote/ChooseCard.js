@@ -6,8 +6,6 @@ const backendURL = process.env.REACT_APP_BACKEND_DOMAIN_KEY;
 
 // 3. 오늘의 명언 카드 선택
 const ChooseCard = () => {
-  const [quoteList, setQuoteList] = useState([]);
-
   const [selectedCard, setSelectedCard] = useState(null);
   const [isFlipped, setIsFlipped] = useState(false);
   const [showQuoteCard, setShowQuoteCard] = useState(false);
@@ -167,10 +165,6 @@ const ChooseCard = () => {
         ></div>
 
         {/* 배경 레이어 2 */}
-        <div
-          className="absolute inset-0 bg-gradient-to-br from-[#ffffff] to-transparent"
-          style={{ opacity: 0.05 * bgOpacity }}
-        ></div>
         <div 
           className="absolute top-4 left-4 w-16 h-16 border-t-2 border-l-2 border-[#d4af37] rounded-tl-xl"
           style={{ opacity: cornerOpacity }}  

@@ -14,11 +14,11 @@ const Login = () => {
             <button
                 onClick={handleLogin}
                 className="
-                    bg-[#FEE500]        /* 카카오 노란색 */
-                    text-[#3C1E1E]      /* 글자 색 */
+                    bg-[#FEE500]
+                    text-[#3C1E1E]
                     font-extrabold
-                    text-2xl            /* 글자 크게 */
-                    px-10 py-5          /* 버튼 패딩 크게 */
+                    text-2xl
+                    px-10 py-5
                     rounded-xl
                     shadow-lg
                     hover:shadow-2xl
