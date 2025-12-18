@@ -109,6 +109,7 @@ const Input = () => {
       const response = await axios.get(`${backendURL}/users/me`,{withCredentials: true});
       const data = response.data;
       // console.log(response);
+      setStep("input");
 
       if (data?.birthDate) setBirth(data.birthDate);
       if (data?.birthTime) {
@@ -140,6 +141,9 @@ const Input = () => {
       if (error.response) {
         // ❌ 서버 에러 응답
         console.error(`❗ 오류 (${error.response.status}):`, error.response.data);
+        if (error.response.data === "로그인이 필요합니다.") {
+          setStep('NeedLogin');
+        };
       } else if (error.request) {
         // ❗ 네트워크 에러
         console.error('🌐 서버 응답 없음:', error.message);
@@ -161,6 +165,29 @@ const Input = () => {
       />
     );
   }
+
+  if (step === "NeedLogin") {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[300px] bg-red-50 border border-red-200 rounded-lg p-8 text-center">
+        <h2 className="text-2xl font-bold text-red-600 mb-4">
+          로그인이 필요합니다
+        </h2>
+        <p className="text-red-500 mb-6">
+          로그인 세션이 만료되었거나, 새로고침이 필요합니다.
+          <br />
+          페이지를 새로고침하고 다시 로그인해주세요.
+        </p>
+        <button
+          onClick={() =>
+            (window.location.href = "https://fortune-card-collection.web.app/")
+          }
+          className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+        >
+          새로고침
+        </button>
+      </div>
+    );
+  };
 
   return (
     <div className="max-w-[1100px] mx-auto py-4 px-4">
