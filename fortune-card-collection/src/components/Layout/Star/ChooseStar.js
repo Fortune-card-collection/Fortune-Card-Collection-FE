@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Search, Menu, Star, MessageCircle, Info, X, ChevronRight, Share2, RefreshCw, Calendar, Clock, Check } from 'lucide-react';
+import React, { useState } from 'react';
+import { Star } from 'lucide-react';
 import StarCard from './StarCard';
 import Star1 from "../../../assets/images/물병자리.svg";
 import Star2 from "../../../assets/images/물고기자리.svg";
@@ -50,14 +50,13 @@ const ChooseStar = () => {
   }
 
   return (
-    <div 
+    <div
       className={`relative mx-auto my-6 flex items-center justify-center select-none animate-in fade-in duration-1000`}
-       style={{
+      style={{
         width: `${containerSize}px`,
         height: `${containerSize + 60}px`, // ← 여기만 늘림
       }}
     >
-      
       {/* 0. [NEW] 휠 전체 배경 (Deep Space Circle) */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         {/* 우주 배경 원 */}
@@ -89,14 +88,22 @@ const ChooseStar = () => {
             <img
               src={hoveredZodiac.image}
               alt={hoveredZodiac.name}
-              className="w-[130px] h-[130px] mb-2 drop-shadow-[0_0_15px_rgba(255,215,0,0.6)]"
+              className="w-[130px] h-[130px] mt-[-10px] drop-shadow-[0_0_15px_rgba(255,215,0,0.6)]"
             />
+            <div className="font-bold text-white text-3xl mb-1 tracking-wide drop-shadow-md">
+              {hoveredZodiac.name}
+            </div>
+            <div className="text-sm text-blue-200 font-medium tracking-widest uppercase">
+              {hoveredZodiac.date}
+            </div>
           </div>
         ) : (
           <div className="relative z-10 flex flex-col items-center text-blue-200/40">
             <Star className="w-10 h-10 mb-3 fill-white/10 text-white/20 animate-pulse" />
-            <div className="text-lg text-blue-100/60 font-serif font-medium leading-tight tracking-wide">
-              별자리를<br/>선택해 주세요
+            <div className="text-lg text-blue-100/60 font-medium leading-tight tracking-wide">
+              별자리를
+              <br />
+              선택해 주세요
             </div>
           </div>
         )}
@@ -115,25 +122,33 @@ const ChooseStar = () => {
                        hover:scale-125 hover:bg-[#d4af37] hover:border-transparent 
                        hover:shadow-[0_0_25px_rgba(212,175,55,0.6)]
                        transition-all duration-300 group z-20"
-            style={{ 
-              left: `calc(50% + ${radius * Math.cos(angle)}px - 55px + ${index === 11 ? -10 : 0}px)`, 
-              top: `calc(50% + ${radius * Math.sin(angle)}px - 55px)`
+            style={{
+              left: `calc(50% + ${radius * Math.cos(angle)}px - 55px + ${
+                index === 11 ? -10 : 0
+              }px)`,
+              top: `calc(50% + ${radius * Math.sin(angle)}px - 55px)`,
             }}
           >
             <span className="flex flex-col items-center ">
               <img
                 src={zodiac.image}
                 alt={zodiac.name}
-                className={`w-[110px] h-[110px] transition-transform duration-300 translate-y-[5px] ${selectedZodiac?.id === zodiac.id ? "scale-[1.01]" : "scale-100"}`}
+                className={`w-[110px] h-[110px] transition-transform duration-300 translate-y-[5px] ${
+                  selectedZodiac?.id === zodiac.id
+                    ? "scale-[1.01]"
+                    : "scale-100"
+                }`}
               />
-            
-              <span className="font-serif font-semibold text-sm text-white mt-2 -translate-y-[21px] group-hover:scale-[1.05]">
+
+              <span className="font-semibold text-sm text-white mt-2 -translate-y-[21px] group-hover:scale-[1.05]">
                 {zodiac.name}
               </span>
             </span>
             {/* 궤도 연결선 (Hover 시) */}
-            <div className="absolute top-1/2 left-1/2 w-[146px] h-[1px] bg-gradient-to-r from-[#d4af37] to-transparent origin-left opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none -z-10"
-                 style={{ transform: `rotate(${angle}rad) translate(-50%, -50%)` }}></div>
+            <div
+              className="absolute top-1/2 left-1/2 w-[146px] h-[1px] bg-gradient-to-r from-[#d4af37] to-transparent origin-left opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none -z-10"
+              style={{ transform: `rotate(${angle}rad) translate(-50%, -50%)` }}
+            ></div>
           </button>
         );
       })}
