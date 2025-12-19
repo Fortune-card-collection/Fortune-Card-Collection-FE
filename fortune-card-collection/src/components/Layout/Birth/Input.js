@@ -88,7 +88,7 @@ const Input = () => {
       return false;
     } else {
       // Date 객체로 실제 날짜 생성
-      const date = new Date(selectYear, selectMonth - 1, day); // month는 0~11
+      const date = new Date(selectYear, selectMonth - 1, selectDay); // month는 0~11
       // Date 객체가 입력한 값과 동일한지 확인
       if (
         date.getFullYear() !== selectYear ||
