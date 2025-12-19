@@ -144,7 +144,7 @@ const ChooseStar = () => {
       {/* 0. [NEW] 휠 전체 배경 (Deep Space Circle) */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         {/* 우주 배경 원 */}
-        <div className="w-[600px] h-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-select-gradient-start via-selectstar-gradient-middle to-selectstar-gradient-end shadow-shadow5 overflow-hidden relative border border-selectstar-gradient-start">
+        <div className="w-[600px] h-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-selectstar-gradient-start via-selectstar-gradient-middle to-selectstar-gradient-end shadow-shadow5 overflow-hidden relative border border-selectstar-gradient-start">
           {/* 별 패턴 텍스처 */}
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30"></div>
           {/* 은은한 그라데이션 효과 */}
@@ -164,7 +164,7 @@ const ChooseStar = () => {
       {/* 2. 중앙 정보 허브 (Cosmic Window) */}
       <div className="absolute z-10 w-64 h-64 rounded-full shadow-custom1 flex flex-col items-center justify-center text-center border-[2px] border-primary-highlight/50 transition-all duration-300 overflow-hidden group bg-black">
         {/* 중앙 내부 배경 */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-selectstar-smallmiddle to-black"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-selectstar-gradient-smallmiddle to-black"></div>
         <div className="absolute inset-0 opacity-50 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] animate-pulse"></div>
 
         {hoveredZodiac ? (
