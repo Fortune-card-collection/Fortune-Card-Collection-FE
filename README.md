@@ -20,14 +20,20 @@ React와 Tailwind CSS를 기반으로 디자인 토큰을 적용해 일관된 UI
 ## 설치 및 실행
 
 ```bash
+# Fortune-Card-Collection-FE 파일에서 fortine-card-collection 파일로 진입
 cd fortune-card-collection
+
+# 패키지 설치
 npm install
+
+# 실행
 npm start
 ```
 
 
 ## 프로젝트 구조
 
+```
 Fortune-Card-Collection-FE/
 ├─ fortune-card-collection/
 │ ├─ package.json # 프로젝트 설정 및 의존성
@@ -40,3 +46,4 @@ Fortune-Card-Collection-FE/
 │ │ │ └─ Header.js # 공통 헤더
 │ │ └─ App.js # 웹 엔트리 컴포넌트
 └─ README.md
+```
