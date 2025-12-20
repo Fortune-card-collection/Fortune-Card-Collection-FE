@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import QuoteCard from './QuoteCard';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import QuoteCard from "./QuoteCard";
+import axios from "axios";
 
 const backendURL = process.env.REACT_APP_BACKEND_DOMAIN_KEY;
 
@@ -25,25 +25,27 @@ const ChooseCard = () => {
     try {
       const response = await axios.get(`${backendURL}/quotes/random`);
       // console.log(response.data);
-      setIds(response.data.map(item => parseInt(item.id)));
-
-    } catch(error) {
+      setIds(response.data.map((item) => parseInt(item.id)));
+    } catch (error) {
       if (error.response) {
         // ❌ 서버 에러 응답
-        console.error(`❗ 오류 (${error.response.status}):`, error.response.data);
+        console.error(
+          `❗ 오류 (${error.response.status}):`,
+          error.response.data
+        );
       } else if (error.request) {
         // ❗ 네트워크 에러
-        console.error('🌐 서버 응답 없음:', error.message);
+        console.error("🌐 서버 응답 없음:", error.message);
       } else {
         // ❗ 기타 에러
-        console.error('⚠️ 요청 실패:', error.message);
+        console.error("⚠️ 요청 실패:", error.message);
       }
     }
-  }
+  };
 
   useEffect(() => {
     RandomQuote();
-  },[]);
+  }, []);
 
   useEffect(() => {
     if (selectedCard !== null) {
@@ -80,8 +82,12 @@ const ChooseCard = () => {
         const inv = 1 - opacity; // 1 → 0
 
         // 투명도만 조절
-        setMoveWhite(`rgba(${startColor.r}, ${startColor.g}, ${startColor.b}, ${inv})`);
-        setMoveWhiteCard(`rgba(${startCardColor.r}, ${startCardColor.g}, ${startCardColor.b}, ${inv})`);
+        setMoveWhite(
+          `rgba(${startColor.r}, ${startColor.g}, ${startColor.b}, ${inv})`
+        );
+        setMoveWhiteCard(
+          `rgba(${startCardColor.r}, ${startCardColor.g}, ${startCardColor.b}, ${inv})`
+        );
         setBgOpacity(1 - opacity);
 
         setCornerOpacity(0.3 * inv);
@@ -110,7 +116,7 @@ const ChooseCard = () => {
       return () => clearInterval(anim);
     } else {
       // 초기 상태로 되돌리기
-      setMoveWhite('#1a1a2e');
+      setMoveWhite("#1a1a2e");
       setSize({ width: 180, height: 270 });
       setBorderWidth(2);
       setCornerOpacity(0.3);
@@ -127,8 +133,7 @@ const ChooseCard = () => {
   };
 
   const handleCardClick = (index) => {
-
-    setSelectedCard(index)
+    setSelectedCard(index);
     setIsFlipped(true);
     // 1초 뒤 다음 화면으로 전환
     setTimeout(() => setShowQuoteCard(true), 2000);
@@ -140,23 +145,22 @@ const ChooseCard = () => {
   };
 
   if (selectedCard !== null && showQuoteCard) {
-      return (
-        <QuoteCard 
-          quote={selectedCard} 
-          onClose={() => {
-            setSelectedCard(null);
-            setShowQuoteCard(false);
-            setIsFlipped(false);
-          }} 
-        />
-      );
+    return (
+      <QuoteCard
+        quote={selectedCard}
+        onClose={() => {
+          setSelectedCard(null);
+          setShowQuoteCard(false);
+          setIsFlipped(false);
+        }}
+      />
+    );
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto max-w-[1100px] mx-auto">
-
-      <div 
-        className="relative w-full rounded-3xl p-12 overflow-hidden shadow-inner "
+    <div className="w-full max-w-4xl mx-auto max-w-[1200px] mx-auto">
+      <div
+        className="relative w-full rounded-3xl p-12 overflow-hidden shadow-shadowinner "
         style={{ backgroundColor: moveWhite }}
       >
         <div
@@ -165,24 +169,26 @@ const ChooseCard = () => {
         ></div>
 
         {/* 배경 레이어 2 */}
-        <div 
-          className="absolute top-4 left-4 w-16 h-16 border-t-2 border-l-2 border-[#d4af37] rounded-tl-xl"
-          style={{ opacity: cornerOpacity }}  
-        ></div>
-        <div 
-          className="absolute top-4 right-4 w-16 h-16 border-t-2 border-r-2 border-[#d4af37] rounded-tr-xl"
+        <div
+          className="absolute top-4 left-4 w-16 h-16 border-t-2 border-l-2 border-primary-highlight rounded-tl-xl"
           style={{ opacity: cornerOpacity }}
         ></div>
-        <div className="absolute bottom-4 left-4 w-16 h-16 border-b-2 border-l-2 border-[#d4af37] rounded-bl-xl"
+        <div
+          className="absolute top-4 right-4 w-16 h-16 border-t-2 border-r-2 border-primary-highlight rounded-tr-xl"
           style={{ opacity: cornerOpacity }}
         ></div>
-        <div className="absolute bottom-4 right-4 w-16 h-16 border-b-2 border-r-2 border-[#d4af37] rounded-br-xl"
+        <div
+          className="absolute bottom-4 left-4 w-16 h-16 border-b-2 border-l-2 border-primary-highlight rounded-bl-xl"
+          style={{ opacity: cornerOpacity }}
+        ></div>
+        <div
+          className="absolute bottom-4 right-4 w-16 h-16 border-b-2 border-r-2 border-primary-highlight rounded-br-xl"
           style={{ opacity: cornerOpacity }}
         ></div>
 
         <div className="flex justify-center gap-6 md:gap-12 relative z-10">
-          <div 
-            className="relative w-40 h-64 md:w-48 md:h-72 cursor-pointer group transition-all duration-300 hover:-translate-y-6 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+          <div
+            className="relative w-40 h-64 md:w-48 md:h-72 cursor-pointer group transition-all duration-300 hover:-translate-y-6 hover:shadow-custom3"
             style={
               selectedCard === ids[0]
                 ? {
@@ -191,40 +197,42 @@ const ChooseCard = () => {
                     transform: `translate(48px, 6px)`,
                   }
                 : {
-                  width: removeSize.width,
-                  height: removeSize.height
-                }
+                    width: removeSize.width,
+                    height: removeSize.height,
+                  }
             }
             onClick={() => handleCardClick(ids[0])}
           >
-            <div 
-              className="w-full h-full bg-[#1e293b] rounded-xl shadow-2xl border-[#475569] overflow-hidden flex items-center justify-center relative transform transition-transform group-hover:scale-105"
+            <div
+              className="w-full h-full bg-selectstar-gradient-start rounded-xl shadow-shadow5 border-quote-border overflow-hidden flex items-center justify-center relative transform transition-transform group-hover:scale-105"
               style={
                 selectedCard === ids[0]
                   ? {}
                   : {
-                    backgroundColor: moveWhiteCard,
-                    borderWidth: borderWidth,
-                  }
+                      backgroundColor: moveWhiteCard,
+                      borderWidth: borderWidth,
+                    }
               }
             >
-              <div className="absolute inset-2 border border-[#94a3b8] opacity-30 rounded-lg"></div>
+              <div className="absolute inset-2 border border-quote-line opacity-30 rounded-lg"></div>
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
-              <div 
-                className="text-4xl text-[#d4af37] animate-pulse"
+              <div
+                className="text-h1 text-primary-highlight animate-pulse"
                 style={
                   selectedCard === ids[0]
                     ? {}
                     : {
-                      opacity: starOpacity,
-                    }
+                        opacity: starOpacity,
+                      }
                 }
-              >✦</div>
+              >
+                ✦
+              </div>
             </div>
           </div>
 
-          <div 
-            className="relative w-40 h-64 md:w-48 md:h-72 cursor-pointer group transition-all duration-300 hover:-translate-y-6 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+          <div
+            className="relative w-40 h-64 md:w-48 md:h-72 cursor-pointer group transition-all duration-300 hover:-translate-y-6 hover:shadow-custom3"
             style={
               selectedCard === ids[1]
                 ? {
@@ -233,40 +241,42 @@ const ChooseCard = () => {
                     transform: `translate(0px, 6px)`,
                   }
                 : {
-                  width: removeSize.width,
-                  height: removeSize.height
-                }
+                    width: removeSize.width,
+                    height: removeSize.height,
+                  }
             }
             onClick={() => handleCardClick(ids[1])}
           >
-            <div 
-              className="w-full h-full rounded-xl shadow-2xl bg-[#1e293b] border-[#475569] overflow-hidden flex items-center justify-center relative transform transition-transform group-hover:scale-105"
+            <div
+              className="w-full h-full rounded-xl shadow-shadow5 bg-selectstar-gradient-start border-quote-border overflow-hidden flex items-center justify-center relative transform transition-transform group-hover:scale-105"
               style={
                 selectedCard === ids[1]
                   ? {}
                   : {
-                    backgroundColor: moveWhiteCard,
-                    borderWidth: borderWidth,
-                  }
+                      backgroundColor: moveWhiteCard,
+                      borderWidth: borderWidth,
+                    }
               }
             >
-              <div className="absolute inset-2 border border-[#94a3b8] opacity-30 rounded-lg"></div>
+              <div className="absolute inset-2 border border-quote-line opacity-30 rounded-lg"></div>
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
-              <div 
-                className="text-4xl text-[#d4af37] animate-pulse"
+              <div
+                className="text-h1 text-primary-highlight animate-pulse"
                 style={
                   selectedCard === ids[1]
                     ? {}
                     : {
-                      opacity: starOpacity,
-                    }
+                        opacity: starOpacity,
+                      }
                 }
-              >✦</div>
+              >
+                ✦
+              </div>
             </div>
           </div>
 
-          <div 
-            className="relative md:w-48 md:h-72 cursor-pointer group transition-all duration-300 hover:-translate-y-6 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+          <div
+            className="relative md:w-48 md:h-72 cursor-pointer group transition-all duration-300 hover:-translate-y-6 hover:shadow-custom3"
             style={
               selectedCard === ids[2]
                 ? {
@@ -275,35 +285,37 @@ const ChooseCard = () => {
                     transform: `translate(-48px, 6px)`,
                   }
                 : {
-                  width: removeSize.width,
-                  height: removeSize.height
-                }
+                    width: removeSize.width,
+                    height: removeSize.height,
+                  }
             }
             onClick={() => handleCardClick(ids[2])}
           >
-            <div 
-              className="w-full h-full rounded-xl shadow-2xl bg-[#1e293b] border-[#475569] overflow-hidden flex items-center justify-center relative transform transition-transform group-hover:scale-105"
+            <div
+              className="w-full h-full rounded-xl shadow-shadow5 bg-selectstar-gradient-start border-quote-border overflow-hidden flex items-center justify-center relative transform transition-transform group-hover:scale-105"
               style={
                 selectedCard === ids[2]
                   ? {}
                   : {
-                    backgroundColor: moveWhiteCard,
-                    borderWidth: borderWidth,
-                  }
+                      backgroundColor: moveWhiteCard,
+                      borderWidth: borderWidth,
+                    }
               }
             >
-              <div className="absolute inset-2 border border-[#94a3b8] opacity-30 rounded-lg"></div>
+              <div className="absolute inset-2 border border-quote-line opacity-30 rounded-lg"></div>
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
-              <div 
-                className="text-4xl text-[#d4af37] opacity-70 animate-pulse"
+              <div
+                className="text-h1 text-primary-highlight opacity-70 animate-pulse"
                 style={
                   selectedCard === ids[2]
                     ? {}
                     : {
-                      opacity: starOpacity,
-                    }
+                        opacity: starOpacity,
+                      }
                 }
-              >✦</div>
+              >
+                ✦
+              </div>
             </div>
           </div>
         </div>

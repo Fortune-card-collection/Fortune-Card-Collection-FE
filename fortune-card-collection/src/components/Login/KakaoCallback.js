@@ -11,19 +11,19 @@ const KakaoCallback = ({ setLogin }) => {
   const code = searchParams.get("code");
 
   const kakaoLogin = async (code) => {
-    axios.get(
-      `${backendURL}/auth/kakao/login?code=${code}`,
-      { withCredentials: true }
-    )
-    .then ( (response) => {
-      // console.log("답변:", response);
-      if ( response.data === "로그인 성공!" ) {
-        setLogin("login");
-      }
-    }
-    ).catch(err => {
-      console.error("카카오 로그인 에러:", err);
-    });
+    axios
+      .get(`${backendURL}/auth/kakao/login?code=${code}`, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        // console.log("답변:", response);
+        if (response.data === "로그인 성공!") {
+          setLogin("login");
+        }
+      })
+      .catch((err) => {
+        console.error("카카오 로그인 에러:", err);
+      });
   };
 
   useEffect(() => {
@@ -36,21 +36,22 @@ const KakaoCallback = ({ setLogin }) => {
     kakaoLogin(code);
   }, [code]);
 
-
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <div className="
+      <div
+        className="
         bg-white
-        text-[#3C1E1E]
+        text-login-button
         font-extrabold
-        text-2xl
+        text-l1
         px-10 py-5
         rounded-xl
-        shadow-lg
+        shadow-shadow3
         flex items-center justify-center
         gap-3
         animate-pulse
-      ">
+      "
+      >
         카카오 로그인 처리 중...
       </div>
     </div>

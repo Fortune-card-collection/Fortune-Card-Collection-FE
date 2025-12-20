@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Star } from 'lucide-react';
-import StarCard from './StarCard';
+import React, { useState } from "react";
+import { Star } from "lucide-react";
+import StarCard from "./StarCard";
 import Star1 from "../../../assets/images/물병자리.svg";
 import Star2 from "../../../assets/images/물고기자리.svg";
 import Star3 from "../../../assets/images/양자리.svg";
@@ -15,24 +15,108 @@ import Star11 from "../../../assets/images/사수자리.svg";
 import Star12 from "../../../assets/images/염소자리.svg";
 
 const ZODIACS = [
-  { id: 'aquarius', name: '물병자리', date: '01.20~02.18', icon: '♒', luck: 90, image: Star1 }, // image: '/assets/aquarius_card.png'
-  { id: 'pisces', name: '물고기자리', date: '02.19~03.20', icon: '♓', luck: 75, image: Star2 },
-  { id: 'aries', name: '양자리', date: '03.21~04.19', icon: '♈', luck: 85, image: Star3 },
-  { id: 'taurus', name: '황소자리', date: '04.20~05.20', icon: '♉', luck: 60, image: Star4 },
-  { id: 'gemini', name: '쌍둥이자리', date: '05.21~06.21', icon: '♊', luck: 95, image: Star5 },
-  { id: 'cancer', name: '게자리', date: '06.22~07.22', icon: '♋', luck: 50, image: Star6 },
-  { id: 'leo', name: '사자자리', date: '07.23~08.22', icon: '♌', luck: 80, image: Star7 },
-  { id: 'virgo', name: '처녀자리', date: '08.23~09.23', icon: '♍', luck: 70, image: Star8 },
-  { id: 'libra', name: '천칭자리', date: '09.24~10.22', icon: '♎', luck: 88, image: Star9 },
-  { id: 'scorpio', name: '전갈자리', date: '10.23~11.22', icon: '♏', luck: 92, image: Star10 },
-  { id: 'sagittarius', name: '사수자리', date: '11.23~12.24', icon: '♐', luck: 65, image: Star11 },
-  { id: 'capricorn', name: '염소자리', date: '12.25~01.19', icon: '♑', luck: 78, image: Star12 },
+  {
+    id: "aquarius",
+    name: "물병자리",
+    date: "01.20~02.18",
+    icon: "♒",
+    luck: 90,
+    image: Star1,
+  }, // image: '/assets/aquarius_card.png'
+  {
+    id: "pisces",
+    name: "물고기자리",
+    date: "02.19~03.20",
+    icon: "♓",
+    luck: 75,
+    image: Star2,
+  },
+  {
+    id: "aries",
+    name: "양자리",
+    date: "03.21~04.19",
+    icon: "♈",
+    luck: 85,
+    image: Star3,
+  },
+  {
+    id: "taurus",
+    name: "황소자리",
+    date: "04.20~05.20",
+    icon: "♉",
+    luck: 60,
+    image: Star4,
+  },
+  {
+    id: "gemini",
+    name: "쌍둥이자리",
+    date: "05.21~06.21",
+    icon: "♊",
+    luck: 95,
+    image: Star5,
+  },
+  {
+    id: "cancer",
+    name: "게자리",
+    date: "06.22~07.22",
+    icon: "♋",
+    luck: 50,
+    image: Star6,
+  },
+  {
+    id: "leo",
+    name: "사자자리",
+    date: "07.23~08.22",
+    icon: "♌",
+    luck: 80,
+    image: Star7,
+  },
+  {
+    id: "virgo",
+    name: "처녀자리",
+    date: "08.23~09.23",
+    icon: "♍",
+    luck: 70,
+    image: Star8,
+  },
+  {
+    id: "libra",
+    name: "천칭자리",
+    date: "09.24~10.22",
+    icon: "♎",
+    luck: 88,
+    image: Star9,
+  },
+  {
+    id: "scorpio",
+    name: "전갈자리",
+    date: "10.23~11.22",
+    icon: "♏",
+    luck: 92,
+    image: Star10,
+  },
+  {
+    id: "sagittarius",
+    name: "사수자리",
+    date: "11.23~12.24",
+    icon: "♐",
+    luck: 65,
+    image: Star11,
+  },
+  {
+    id: "capricorn",
+    name: "염소자리",
+    date: "12.25~01.19",
+    icon: "♑",
+    luck: 78,
+    image: Star12,
+  },
 ];
 
 const ChooseStar = () => {
   const [selectedZodiac, setSelectedZodiac] = useState(null);
   const [hoveredZodiac, setHoveredZodiac] = useState(null);
-  const radius = 220; 
+  const radius = 220;
   const containerSize = 600; // 배경을 위해 사이즈 약간 확대
 
   const onSelectStar = (zodiac) => {
@@ -41,9 +125,9 @@ const ChooseStar = () => {
 
   if (selectedZodiac) {
     return (
-      <StarCard 
+      <StarCard
         selectedZodiac={selectedZodiac}
-        onBack={() => setSelectedZodiac(null)} 
+        onBack={() => setSelectedZodiac(null)}
         onSelect={onSelectStar}
       />
     );
@@ -60,7 +144,7 @@ const ChooseStar = () => {
       {/* 0. [NEW] 휠 전체 배경 (Deep Space Circle) */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         {/* 우주 배경 원 */}
-        <div className="w-[600px] h-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#1e293b] via-[#0f172a] to-[#020617] shadow-2xl overflow-hidden relative border border-[#1e293b]">
+        <div className="w-[600px] h-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-selectstar-gradient-start via-selectstar-gradient-middle to-selectstar-gradient-end shadow-shadow5 overflow-hidden relative border border-selectstar-gradient-start">
           {/* 별 패턴 텍스처 */}
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30"></div>
           {/* 은은한 그라데이션 효과 */}
@@ -70,17 +154,17 @@ const ChooseStar = () => {
 
       {/* 1. 장식 궤도 라인 (Gold & Light Blue) */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[480px] h-[480px] rounded-full border border-[#d4af37] opacity-20"></div>
-        <div className="absolute w-[350px] h-[350px] rounded-full border border-dashed border-[#60a5fa] opacity-20"></div>
+        <div className="w-[480px] h-[480px] rounded-full border border-primary-highlight opacity-20"></div>
+        <div className="absolute w-[350px] h-[350px] rounded-full border border-dashed border-secondary-blue-light opacity-20"></div>
         {/* 나침반 십자선 */}
-        <div className="absolute w-[540px] h-[1px] bg-gradient-to-r from-transparent via-[#d4af37] to-transparent opacity-10"></div>
-        <div className="absolute w-[1px] h-[540px] bg-gradient-to-b from-transparent via-[#d4af37] to-transparent opacity-10"></div>
+        <div className="absolute w-[540px] h-[1px] bg-gradient-to-r from-transparent via-primary-highlight to-transparent opacity-10"></div>
+        <div className="absolute w-[1px] h-[540px] bg-gradient-to-b from-transparent via-primary-highlight to-transparent opacity-10"></div>
       </div>
 
       {/* 2. 중앙 정보 허브 (Cosmic Window) */}
-      <div className="absolute z-10 w-64 h-64 rounded-full shadow-[0_0_60px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center text-center border-[2px] border-[#d4af37]/50 transition-all duration-300 overflow-hidden group bg-black">
+      <div className="absolute z-10 w-64 h-64 rounded-full shadow-custom1 flex flex-col items-center justify-center text-center border-[2px] border-primary-highlight/50 transition-all duration-300 overflow-hidden group bg-black">
         {/* 중앙 내부 배경 */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#1e3a8a] to-[#000]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-selectstar-gradient-smallmiddle to-black"></div>
         <div className="absolute inset-0 opacity-50 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] animate-pulse"></div>
 
         {hoveredZodiac ? (
@@ -88,19 +172,19 @@ const ChooseStar = () => {
             <img
               src={hoveredZodiac.image}
               alt={hoveredZodiac.name}
-              className="w-[130px] h-[130px] mt-[-10px] drop-shadow-[0_0_15px_rgba(255,215,0,0.6)]"
+              className="w-[130px] h-[130px] mt-[-10px] drop-shadow-custom2"
             />
-            <div className="font-bold text-white text-3xl mb-1 tracking-wide drop-shadow-md">
+            <div className="font-bold text-white text-h2 mb-1 tracking-wide drop-shadow-shadow2">
               {hoveredZodiac.name}
             </div>
-            <div className="text-sm text-blue-200 font-medium tracking-widest uppercase">
+            <div className="text-l4 text-blue-200 font-medium tracking-widest uppercase">
               {hoveredZodiac.date}
             </div>
           </div>
         ) : (
           <div className="relative z-10 flex flex-col items-center text-blue-200/40">
             <Star className="w-10 h-10 mb-3 fill-white/10 text-white/20 animate-pulse" />
-            <div className="text-lg text-blue-100/60 font-medium leading-tight tracking-wide">
+            <div className="text-l2 text-blue-100/60 font-medium leading-tight tracking-wide">
               별자리를
               <br />
               선택해 주세요
@@ -119,8 +203,8 @@ const ChooseStar = () => {
             onMouseEnter={() => setHoveredZodiac(zodiac)}
             onMouseLeave={() => setHoveredZodiac(null)}
             className="absolute w-[110px] h-[110px] rounded-full flex items-center justify-center
-                       hover:scale-125 hover:bg-[#d4af37] hover:border-transparent 
-                       hover:shadow-[0_0_25px_rgba(212,175,55,0.6)]
+                       hover:scale-125 hover:bg-primary-highlight hover:border-transparent 
+                       hover:shadow-custom4
                        transition-all duration-300 group z-20"
             style={{
               left: `calc(50% + ${radius * Math.cos(angle)}px - 55px + ${
@@ -140,13 +224,13 @@ const ChooseStar = () => {
                 }`}
               />
 
-              <span className="font-semibold text-sm text-white mt-2 -translate-y-[21px] group-hover:scale-[1.05]">
+              <span className="font-semibold text-l4 text-white mt-2 -translate-y-[21px] group-hover:scale-[1.05]">
                 {zodiac.name}
               </span>
             </span>
             {/* 궤도 연결선 (Hover 시) */}
             <div
-              className="absolute top-1/2 left-1/2 w-[146px] h-[1px] bg-gradient-to-r from-[#d4af37] to-transparent origin-left opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none -z-10"
+              className="absolute top-1/2 left-1/2 w-[146px] h-[1px] bg-gradient-to-r from-primary-highlight to-transparent origin-left opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none -z-10"
               style={{ transform: `rotate(${angle}rad) translate(-50%, -50%)` }}
             ></div>
           </button>

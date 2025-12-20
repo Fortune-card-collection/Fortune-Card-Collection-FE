@@ -8,32 +8,35 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginScreen from "./components/Login/Login";
 import KakaoCallback from "./components/Login/KakaoCallback";
 
-import { Star, MessageCircle, Calendar } from 'lucide-react';
+import { Star, MessageCircle, Calendar } from "lucide-react";
 
 const App = () => {
-  const [login, setLogin] = useState('notLogin');
-  const [activeTab, setActiveTab] = useState('star');
+  const [login, setLogin] = useState("notLogin");
+  const [activeTab, setActiveTab] = useState("star");
 
-  if (login === 'notLogin') {
+  if (login === "notLogin") {
     return (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginScreen />} />
-          <Route path="/auth/kakao/login" element={<KakaoCallback setLogin={setLogin}/>} />
+          <Route
+            path="/auth/kakao/login"
+            element={<KakaoCallback setLogin={setLogin} />}
+          />
         </Routes>
       </BrowserRouter>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#f7f7f7] text-[#333]">
-      <main className="max-w-[1100px] mx-auto px-4 py-8 grid grid-cols-1">
+    <div className="min-h-screen bg-gray-white text-gray-deepDark">
+      <main className="max-w-[1200px] mx-auto px-4 py-8 grid grid-cols-1">
         <Header activeTab={activeTab} setActiveTab={setActiveTab} />
 
         <section className="mx-auto w-full">
           <div className="rounded-sm min-h-[700px] flex flex-col overflow-hidden">
-            <div className="bg-white px-8 pt-8 pb-4 border-b border-[#f0f0f0] shadow-sm">
-              <h2 className="text-2xl font-bold text-[#1e1e1e] flex items-center gap-2">
+            <div className="bg-white px-8 pt-8 pb-4 border-b border-primary-white shadow-shadow1">
+              <h2 className="text-l1 font-bold text-blacks flex items-center gap-2">
                 {activeTab === "star" && (
                   <>
                     <Star className="w-6 h-6 text-yellow-400 fill-current" />{" "}
@@ -42,18 +45,18 @@ const App = () => {
                 )}
                 {activeTab === "birth" && (
                   <>
-                    <Calendar className="w-6 h-6 text-[#3da8f5]" /> 생년월일
+                    <Calendar className="w-6 h-6 text-primary-blue" /> 생년월일
                     운세
                   </>
                 )}
                 {activeTab === "quote" && (
                   <>
-                    <MessageCircle className="w-6 h-6 text-[#3da8f5]" /> 오늘의
-                    명언
+                    <MessageCircle className="w-6 h-6 text-primary-blue" />{" "}
+                    오늘의 명언
                   </>
                 )}
               </h2>
-              <p className="text-sm text-[#888] mt-2">
+              <p className="text-l4 text-gray-medium mt-2">
                 {activeTab === "star" &&
                   "원하는 별자리를 선택하여 오늘의 행운을 확인하세요."}
                 {activeTab === "birth" &&
