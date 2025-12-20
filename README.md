@@ -36,14 +36,14 @@ npm start
 ```
 Fortune-Card-Collection-FE/
 ├─ fortune-card-collection/
-│ ├─ package.json # 프로젝트 설정 및 의존성
-│ ├─ tailwind.config.js # 디자인 토큰 정의
+│ ├─ package.json              # 프로젝트 설정 및 의존성
+│ ├─ tailwind.config.js        # 디자인 토큰 정의
 │ ├─ src/
-│ │ ├─ assets/ # 이미지 리소스
-│ │ ├─ components/ # UI 컴포넌트
-│ │ │ ├─ Layout/ # 주요 화면 레이아웃
-│ │ │ ├─ Login/ # 로그인 컴포넌트
-│ │ │ └─ Header.js # 공통 헤더
-│ │ └─ App.js # 웹 엔트리 컴포넌트
+│ │ ├─ assets/                 # 이미지 리소스
+│ │ ├─ components/             # UI 컴포넌트
+│ │ │ ├─ Layout/               # 주요 화면 레이아웃
+│ │ │ ├─ Login/                # 로그인 컴포넌트
+│ │ │ └─ Header.js             # 공통 헤더
+│ │ └─ App.js                  # 웹 엔트리 컴포넌트
 └─ README.md
 ```
