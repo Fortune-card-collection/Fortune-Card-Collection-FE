@@ -16,7 +16,7 @@ export default function StarSelectHeader({
           <button
             key={zodiac.id}
             onClick={() => onSelect(zodiac)}
-            className={`px-4 py-2 text-lg rounded-full font-semibold transition-colors duration-200 ${
+            className={`px-4 py-2 text-h4 rounded-full font-semibold transition-colors duration-200 ${
               selectedZodiac.id === zodiac.id
                 ? "bg-yellow-400 text-black font-bold shadow-shadow2"
                 : "bg-white text-gray-500"
@@ -33,7 +33,7 @@ export default function StarSelectHeader({
           <button
             key={period}
             onClick={() => onSelectPeriod(period)}
-            className={`text-xl font-semibold transition-colors duration-200 pb-2 w-[90px] ${
+            className={`text-h3 font-semibold transition-colors duration-200 pb-2 w-[90px] ${
               selectedPeriod === period
                 ? "font-extrabold text-yellow-400 border-b-2 border-yellow-400"
                 : "text-gray-500"

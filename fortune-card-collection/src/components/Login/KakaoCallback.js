@@ -43,7 +43,7 @@ const KakaoCallback = ({ setLogin }) => {
         bg-white
         text-login-button
         font-extrabold
-        text-2xl
+        text-l1
         px-10 py-5
         rounded-xl
         shadow-shadow3

@@ -66,11 +66,11 @@ module.exports = {
         },
       },
       fontSize: {
-        h1: "24px",
-        h2: "24px",
-        h3: "24px",
-        h4: "24px",
-        h5: "24px",
+        h1: "36px",
+        h2: "30px",
+        h3: "20px",
+        h4: "18px",
+        h5: "16px",
 
         b1: "16px",
         b2: "15px",

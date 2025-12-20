@@ -217,7 +217,7 @@ const ChooseCard = () => {
               <div className="absolute inset-2 border border-quote-line opacity-30 rounded-lg"></div>
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
               <div
-                className="text-4xl text-primary-highlight animate-pulse"
+                className="text-h1 text-primary-highlight animate-pulse"
                 style={
                   selectedCard === ids[0]
                     ? {}
@@ -261,7 +261,7 @@ const ChooseCard = () => {
               <div className="absolute inset-2 border border-quote-line opacity-30 rounded-lg"></div>
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
               <div
-                className="text-4xl text-primary-highlight animate-pulse"
+                className="text-h1 text-primary-highlight animate-pulse"
                 style={
                   selectedCard === ids[1]
                     ? {}
@@ -305,7 +305,7 @@ const ChooseCard = () => {
               <div className="absolute inset-2 border border-quote-line opacity-30 rounded-lg"></div>
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
               <div
-                className="text-4xl text-primary-highlight opacity-70 animate-pulse"
+                className="text-h1 text-primary-highlight opacity-70 animate-pulse"
                 style={
                   selectedCard === ids[2]
                     ? {}

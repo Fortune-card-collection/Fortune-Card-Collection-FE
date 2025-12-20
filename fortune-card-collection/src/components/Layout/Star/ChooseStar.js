@@ -174,17 +174,17 @@ const ChooseStar = () => {
               alt={hoveredZodiac.name}
               className="w-[130px] h-[130px] mt-[-10px] drop-shadow-custom2"
             />
-            <div className="font-bold text-white text-3xl mb-1 tracking-wide drop-shadow-shadow2">
+            <div className="font-bold text-white text-h2 mb-1 tracking-wide drop-shadow-shadow2">
               {hoveredZodiac.name}
             </div>
-            <div className="text-sm text-blue-200 font-medium tracking-widest uppercase">
+            <div className="text-l4 text-blue-200 font-medium tracking-widest uppercase">
               {hoveredZodiac.date}
             </div>
           </div>
         ) : (
           <div className="relative z-10 flex flex-col items-center text-blue-200/40">
             <Star className="w-10 h-10 mb-3 fill-white/10 text-white/20 animate-pulse" />
-            <div className="text-lg text-blue-100/60 font-medium leading-tight tracking-wide">
+            <div className="text-l2 text-blue-100/60 font-medium leading-tight tracking-wide">
               별자리를
               <br />
               선택해 주세요
@@ -224,7 +224,7 @@ const ChooseStar = () => {
                 }`}
               />
 
-              <span className="font-semibold text-sm text-white mt-2 -translate-y-[21px] group-hover:scale-[1.05]">
+              <span className="font-semibold text-l4 text-white mt-2 -translate-y-[21px] group-hover:scale-[1.05]">
                 {zodiac.name}
               </span>
             </span>

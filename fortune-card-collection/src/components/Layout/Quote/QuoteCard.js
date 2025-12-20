@@ -67,7 +67,7 @@ export default function QuoteCard({ quote }) {
             >
               <div className="absolute inset-2 border border-quote-line opacity-30 rounded-lg"></div>
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
-              <div className="text-4xl text-primary-highlight opacity-1 animate-pulse">
+              <div className="text-h1 text-primary-highlight opacity-1 animate-pulse">
                 ✦
               </div>
             </div>
@@ -88,7 +88,7 @@ export default function QuoteCard({ quote }) {
                 className="w-full h-full object-cover shadow-shadow3 rounded-xl"
               />
               <div className="absolute inset-0 flex flex-col top-[180px] items-center text-center">
-                <p className="text-black text-2xl font-bold drop-shadow-shadow2 px-[60px]">
+                <p className="text-black text-l1 font-bold drop-shadow-shadow2 px-[60px]">
                   {message}
                 </p>
               </div>

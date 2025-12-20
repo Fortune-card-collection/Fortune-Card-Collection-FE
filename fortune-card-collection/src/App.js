@@ -36,7 +36,7 @@ const App = () => {
         <section className="mx-auto w-full">
           <div className="rounded-sm min-h-[700px] flex flex-col overflow-hidden">
             <div className="bg-white px-8 pt-8 pb-4 border-b border-primary-white shadow-shadow1">
-              <h2 className="text-2xl font-bold text-blacks flex items-center gap-2">
+              <h2 className="text-l1 font-bold text-blacks flex items-center gap-2">
                 {activeTab === "star" && (
                   <>
                     <Star className="w-6 h-6 text-yellow-400 fill-current" />{" "}
@@ -56,7 +56,7 @@ const App = () => {
                   </>
                 )}
               </h2>
-              <p className="text-sm text-gray-medium mt-2">
+              <p className="text-l4 text-gray-medium mt-2">
                 {activeTab === "star" &&
                   "원하는 별자리를 선택하여 오늘의 행운을 확인하세요."}
                 {activeTab === "birth" &&

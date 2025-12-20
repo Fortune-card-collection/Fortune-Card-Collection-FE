@@ -104,11 +104,11 @@ export default function BirthCard({ cardimg, Birth, Man, Solar, Time }) {
               />
               {/* 텍스트 */}
               <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
-                <h2 className="text-black text-2xl font-bold drop-shadow-shadow2 mb-5">
+                <h2 className="text-black text-l1 font-bold drop-shadow-shadow2 mb-5">
                   {Birth.slice(0, 4)}.{Birth.slice(4, 6)}.{Birth.slice(6, 8)}{" "}
                   운세
                 </h2>
-                <p className="text-black overflow-auto text-left text-base drop-shadow-shadow2 whitespace-pre-line scrollbar-hide px-[25px] ml-2">
+                <p className="text-black overflow-auto text-left text-b1 drop-shadow-shadow2 whitespace-pre-line scrollbar-hide px-[25px] ml-2">
                   {message}
                 </p>
               </div>

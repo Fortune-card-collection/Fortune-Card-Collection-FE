@@ -186,7 +186,7 @@ const Input = () => {
   if (step === "NeedLogin") {
     return (
       <div className="flex flex-col items-center justify-center min-h-[300px] bg-red-50 border border-red-200 rounded-lg p-8 text-center">
-        <h2 className="text-2xl font-bold text-red-600 mb-4">
+        <h2 className="text-l1 font-bold text-red-600 mb-4">
           로그인이 필요합니다
         </h2>
         <p className="text-red-500 mb-6">
@@ -210,7 +210,7 @@ const Input = () => {
     <div className="max-w-[1200px] mx-auto py-4 px-4">
       <div className="w-full mx-auto space-y-6">
         <div className="w-full max-w-[600px] min-w-[300px]">
-          <label className="block text-sm font-bold text-gray-deepDark mb-2">
+          <label className="block text-l4 font-bold text-gray-deepDark mb-2">
             생년월일
           </label>
           <div className="relative mb-[-10px]">
@@ -229,9 +229,9 @@ const Input = () => {
               onClick={() => setOpen(!open)}
             />
             {error ? (
-              <p className="text-red-500 text-sm mt-[2px] h-4">{error}</p>
+              <p className="text-red-500 text-l4 mt-[2px] h-4">{error}</p>
             ) : (
-              <p className="text-sm mt-1 h-4">&nbsp;</p>
+              <p className="text-l4 mt-1 h-4">&nbsp;</p>
             )}
           </div>
         </div>
@@ -242,7 +242,7 @@ const Input = () => {
             <div className="absolute left-[0px] top-[-15px] bg-white shadow-shadow3 rounded-lg p-4 w-[300px] z-50 border border-gray-200">
               {/* year */}
               <div className="mb-2 mt-[-8px]">
-                <label className="text-sm text-gray-600">Year</label>
+                <label className="text-l4 text-gray-600">Year</label>
                 <select
                   className="w-full border border-gray-300 rounded px-2 py-2"
                   value={year}
@@ -258,7 +258,7 @@ const Input = () => {
 
               {/* month */}
               <div className="mb-2">
-                <label className="text-sm text-gray-600">Month</label>
+                <label className="text-l4 text-gray-600">Month</label>
                 <select
                   className="w-full border border-gray-300 rounded px-2 py-2"
                   value={month}
@@ -274,7 +274,7 @@ const Input = () => {
 
               {/* day */}
               <div className="mb-2">
-                <label className="text-sm text-gray-600">Day</label>
+                <label className="text-l4 text-gray-600">Day</label>
                 <select
                   className="w-full border border-gray-300 rounded px-2 py-2"
                   value={day}
@@ -307,7 +307,7 @@ const Input = () => {
         )}
 
         <div>
-          <label className="block text-sm font-bold text-gray-deepDark mb-2">
+          <label className="block text-l4 font-bold text-gray-deepDark mb-2">
             태어난 시간
           </label>
           <div className="relative">
@@ -328,7 +328,7 @@ const Input = () => {
 
         <div className="flex gap-4">
           <div className="flex-1">
-            <label className="block text-sm font-bold text-gray-deepDark mb-2">
+            <label className="block text-l4 font-bold text-gray-deepDark mb-2">
               양력/음력
             </label>
             <div className="flex h-12 border border-gray-light rounded overflow-hidden">
@@ -364,7 +364,7 @@ const Input = () => {
           </div>
 
           <div className="flex-1">
-            <label className="block text-sm font-bold text-gray-deepDark mb-2">
+            <label className="block text-l4 font-bold text-gray-deepDark mb-2">
               성별
             </label>
             <div className="flex h-12 border border-gray-light rounded overflow-hidden">
@@ -407,7 +407,7 @@ const Input = () => {
               setStep("result");
             }
           }}
-          className="w-full h-14 bg-primary-blue text-white font-bold text-lg rounded mt-4 hover:bg-input-button shadow-shadow1 transition-colors"
+          className="w-full h-14 bg-primary-blue text-white font-bold text-l2 rounded mt-4 hover:bg-input-button shadow-shadow1 transition-colors"
         >
           운세 결과 보기
         </button>

@@ -9,7 +9,7 @@ export default function Header({ activeTab, setActiveTab }) {
           <nav className="flex gap-1 flex-nowrap">
             <button
               onClick={() => setActiveTab("star")}
-              className={`h-16 px-4 text-[15px] font-bold flex items-center transition-colors ${
+              className={`h-16 px-4 text-b2 font-bold flex items-center transition-colors ${
                 activeTab === "star"
                   ? "text-primary-blue border-b-2 border-primary-blue font-extrabold"
                   : "text-gray-dark hover:text-primary-blue"
@@ -19,7 +19,7 @@ export default function Header({ activeTab, setActiveTab }) {
             </button>
             <button
               onClick={() => setActiveTab("birth")}
-              className={`h-16 px-4 text-[15px] font-bold flex items-center transition-colors ${
+              className={`h-16 px-4 text-b2 font-bold flex items-center transition-colors ${
                 activeTab === "birth"
                   ? "text-primary-blue border-b-2 border-primary-blue font-extrabold"
                   : "text-gray-dark hover:text-primary-blue"
@@ -29,7 +29,7 @@ export default function Header({ activeTab, setActiveTab }) {
             </button>
             <button
               onClick={() => setActiveTab("quote")}
-              className={`h-16 px-4 text-[15px] font-bold flex items-center transition-colors ${
+              className={`h-16 px-4 text-b2 font-bold flex items-center transition-colors ${
                 activeTab === "quote"
                   ? "text-primary-blue border-b-2 border-primary-blue font-extrabold"
                   : "text-gray-dark hover:text-primary-blue"

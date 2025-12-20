@@ -137,10 +137,10 @@ export default function StarCard({ selectedZodiac, onSelect }) {
             />
             {/* 텍스트 */}
             <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
-              <h2 className="text-white text-2xl font-bold mb-5 drop-shadow-shadow2">
+              <h2 className="text-white text-l1 font-bold mb-5 drop-shadow-shadow2">
                 {getFormattedDate(selectedPeriod)}
               </h2>
-              <p className="text-white whitespace-pre-line overflow-auto text-base scrollbar-hide text-left drop-shadow-shadow2 pl-2">
+              <p className="text-white whitespace-pre-line overflow-auto text-b1 scrollbar-hide text-left drop-shadow-shadow2 pl-2">
                 {message}
               </p>
             </div>
